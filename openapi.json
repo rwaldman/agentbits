@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Agent Bits",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "Small, reliable utilities and datasets for AI agents.",
     "contact": {
       "url": "https://agentbits.dev"
@@ -43,6 +43,37 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/datasets/countries/v1.json": {
+      "get": {
+        "operationId": "countries_bulk",
+        "summary": "Retrieve the full versioned countries dataset used by Agent Bits country lookups. Use when an agent needs bulk offline country metadata rather than a single country lookup.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          },
+          "402": {
+            "description": "Payment required"
+          }
+        }
+      }
+    },
+    "/v1/countries/{code}": {
+      "get": {
+        "operationId": "country_lookup",
+        "summary": "Look up metadata for an ISO 3166-1 alpha-2 country code. Use this when an agent needs a country's name, currency, language, calling code, region, or related standardized country metadata.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
           }
         }
       }

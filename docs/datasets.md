@@ -25,6 +25,6 @@ Each published dataset has a page under [`../datasets/`](../datasets/).
 
 Public pages describe contracts and access methods. They do not embed proprietary dataset contents.
 
-## Status
+## Published datasets
 
-No datasets are published yet.
+- [`countries`](../datasets/countries.md) — versioned country metadata (`v1`)

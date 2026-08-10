@@ -25,6 +25,7 @@ Each published tool has a page under [`../tools/`](../tools/) containing:
 - limitations
 - version
 
-## Status
+## Published tools
 
-No tools are published yet.
+- [`country_lookup`](../tools/country_lookup.md) — free ISO country metadata lookup
+- [`countries_bulk`](../tools/countries_bulk.md) — paid bulk countries dataset download

@@ -23,8 +23,9 @@ GitHub: https://github.com/rwaldman/agentbits
 
 ## Tools
 
-_No tools published yet._
+- countries_bulk: https://agentbits.dev/tools/countries_bulk.md
+- country_lookup: https://agentbits.dev/tools/country_lookup.md
 
 ## Datasets
 
-_No datasets published yet._
+- countries: https://agentbits.dev/datasets/countries.md

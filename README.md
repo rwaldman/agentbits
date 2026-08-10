@@ -75,7 +75,10 @@ See [`docs/payments.md`](./docs/payments.md).
 
 ## Status
 
-The public discovery surface is being established. No capabilities are published yet.
+Initial capabilities are published in the catalog:
+
+- Free: `country_lookup`
+- Paid bulk dataset: `countries` / `countries_bulk`
 
 ## License
 

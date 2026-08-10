@@ -28,6 +28,16 @@ Development and testing use test networks. Production payment details will be pu
 - Pricing is part of the public contract for each paid capability.
 - Ambiguous billing behavior is considered a defect.
 
+## Current paid capabilities
+
+- `countries_bulk` / `GET /v1/datasets/countries/v1.json`
+
+Unpaid requests receive HTTP `402` with a machine-readable payment challenge.
+
+### Payment succeeds, execution fails
+
+If payment verification succeeds but capability execution fails, Agent Bits returns the execution error and includes payment receipt metadata when available. It does not silently invent refunds or credits.
+
 ## Status
 
-No paid capabilities are published yet.
+Paid access uses protocol adapters. Development/testing may use a mock adapter on test networks. Production x402 recipient/facilitator configuration is operator-managed.
