@@ -1,0 +1,11 @@
+{
+  "name": "Agent Bits",
+  "description": "Small, reliable utilities and datasets for AI agents.",
+  "website": "https://agentbits.dev",
+  "mcp": "https://agentbits.dev/mcp",
+  "api": "https://agentbits.dev/api",
+  "github": "https://github.com/rwaldman/agentbits",
+  "version": "0.0.0",
+  "updated": "2026-08-10",
+  "capabilities": []
+}

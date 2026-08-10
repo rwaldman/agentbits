@@ -1,0 +1,65 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Agent Bits",
+    "version": "0.0.0",
+    "description": "Small, reliable utilities and datasets for AI agents.",
+    "contact": {
+      "url": "https://agentbits.dev"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://agentbits.dev",
+      "description": "Canonical Agent Bits service"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "summary": "Service health",
+        "responses": {
+          "200": {
+            "description": "Service is reachable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Agent Bits"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "name"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "tool",
+      "description": "Deterministic utilities and lookups"
+    },
+    {
+      "name": "dataset",
+      "description": "Curated static datasets"
+    },
+    {
+      "name": "integration",
+      "description": "External API integrations"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+# Agent Bits — Full Agent Documentation
+
+Small, reliable utilities and datasets for AI agents.
+
+## Identity
+
+- Name: Agent Bits
+- Website: https://agentbits.dev
+- MCP: https://agentbits.dev/mcp
+- API: https://agentbits.dev/api
+- GitHub: https://github.com/rwaldman/agentbits
+- Catalog version: 0.0.0
+- Updated: 2026-08-10
+
+## How to use
+
+### MCP
+
+Connect an MCP-compatible client to `https://agentbits.dev/mcp`.
+Tool names and input schemas match the HTTP capability contracts.
+
+### HTTP
+
+JSON-first HTTP API under `https://agentbits.dev/api` and versioned paths under `/v1`.
+See OpenAPI for the published machine-readable surface.
+
+### Payments
+
+Capabilities may be free or paid. Paid access uses payment protocol adapters
+(initially x402). Agents should follow machine-readable payment challenges
+returned by the service. See docs/payments.md.
+
+## Errors
+
+Errors are machine-readable JSON objects with stable codes:
+
+```json
+{
+  "error": {
+    "code": "INVALID_INPUT",
+    "message": "Human-readable explanation.",
+    "field": "optional_field_name"
+  }
+}
+```
+
+## Capabilities
+
+No capabilities are published yet.
+
+This document will be regenerated as tools and datasets are added.
+
+## Limitations
+
+- The public repository contains documentation and discovery metadata only.
+- The hosted implementation is proprietary.
+- Unpublished/internal capabilities are intentionally omitted.
