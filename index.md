@@ -135,6 +135,9 @@ https://agentbits.dev/docs/
 Agent guide:
 https://agentbits.dev/for-agents
 
+Official MCP registry:
+https://agentbits.dev/server.json
+
 llms.txt:
 https://agentbits.dev/llms.txt
 

@@ -34,6 +34,12 @@ Use Streamable HTTP. Protocol methods are JSON-RPC POST requests to `/mcp`.
 OpenAPI: https://agentbits.dev/openapi.json
 Versioned routes: https://agentbits.dev/v1/...
 
+## MCP registries
+
+- Official MCP Registry manifest: https://agentbits.dev/server.json (`io.github.rwaldman/agentbits`)
+- Smithery server card: https://agentbits.dev/.well-known/mcp/server-card.json
+- Directory checklist: https://agentbits.dev/docs/mcp-registries.md
+
 ## Documentation
 
 - Concise index: https://agentbits.dev/llms.txt

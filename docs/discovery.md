@@ -14,6 +14,9 @@ This page explains how agents and developers can discover Agent Bits.
 | [`../catalog.json`](../catalog.json) | Machine-readable capability catalog |
 | [`../openapi.json`](../openapi.json) | HTTP surface |
 | MCP `https://agentbits.dev/mcp` | Tool discovery and invocation |
+| [`../server.json`](../server.json) | Official MCP Registry remote-server manifest |
+| [`../.well-known/mcp/server-card.json`](../.well-known/mcp/server-card.json) | Smithery / scanner server card |
+| [`mcp-registries.md`](./mcp-registries.md) | Directory registration checklist |
 | [`../tools/`](../tools/) | Per-tool pages (kebab + snake aliases) |
 | [`../datasets/`](../datasets/) | Per-dataset pages |
 | [`../sitemap.xml`](../sitemap.xml) | Crawl map |

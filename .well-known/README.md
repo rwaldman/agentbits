@@ -1,18 +1,30 @@
 # `.well-known`
 
-This directory is reserved for established ecosystem discovery standards.
+This directory holds established ecosystem discovery documents only.
 
-Agent Bits will only publish `.well-known` files that correspond to currently supported standards. This repository will not invent a protocol and present it as an established standard.
+## Published
 
-## Prefer these discovery entry points today
+| Path | Purpose |
+| --- | --- |
+| [`mcp/server-card.json`](./mcp/server-card.json) | Smithery / MCP scanner server card (tools + transport) |
+
+Live equivalents:
+
+- https://agentbits.dev/.well-known/mcp/server-card.json
+- https://agentbits.dev/server.json (official MCP Registry manifest)
+
+## Prefer these discovery entry points
 
 - [`../llms.txt`](../llms.txt)
 - [`../catalog.json`](../catalog.json)
 - [`../openapi.json`](../openapi.json)
+- [`../server.json`](../server.json)
+- [`../for-agents.md`](../for-agents.md)
 - MCP: `https://agentbits.dev/mcp`
+- Registry guide: [`../docs/mcp-registries.md`](../docs/mcp-registries.md)
 - Capability pages under [`../tools/`](../tools/) and [`../datasets/`](../datasets/)
 - GitHub: `https://github.com/rwaldman/agentbits`
 
 ## Status
 
-No standard-specific well-known documents are published yet. Files will be added only when a concrete hosted standard requires them.
+Additional `.well-known` files are added only when a concrete hosted standard requires them.

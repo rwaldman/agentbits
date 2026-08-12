@@ -14,8 +14,11 @@ GitHub: https://github.com/rwaldman/agentbits
 - Full docs: https://agentbits.dev/llms-full.txt
 - For agents: https://agentbits.dev/for-agents
 - Discovery guide: https://agentbits.dev/docs/discovery.md
-- Payments: https://agentbits.dev/docs/payments.md
 - MCP install: https://agentbits.dev/docs/mcp.md
+- MCP registries: https://agentbits.dev/docs/mcp-registries.md
+- Official server.json: https://agentbits.dev/server.json
+- Server card: https://agentbits.dev/.well-known/mcp/server-card.json
+- Payments: https://agentbits.dev/docs/payments.md
 
 ## Capability categories
 
