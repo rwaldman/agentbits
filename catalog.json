@@ -1,19 +1,29 @@
 {
   "name": "Agent Bits",
-  "description": "Small, reliable utilities and datasets for AI agents.",
+  "description": "Machine-readable utilities and datasets for AI agents.",
   "website": "https://agentbits.dev",
   "mcp": "https://agentbits.dev/mcp",
   "api": "https://agentbits.dev/api",
   "github": "https://github.com/rwaldman/agentbits",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "updated": "2026-08-12",
   "capabilities": [
     {
       "name": "base64_decode",
       "type": "tool",
-      "description": "Decode a Base64 string into UTF-8 text, reporting invalid payloads as errors.",
-      "documentation": "https://agentbits.dev/tools/base64_decode.md",
+      "description": "Decode a Base64 string into UTF-8 text and report invalid payloads as errors when recovering embedded credentials, tokens, or transport-encoded content.",
+      "documentation": "https://agentbits.dev/tools/base64-decode",
       "when_to_use": "Use this tool when you need deterministic Base64 decoding.",
+      "use_when": [
+        "Decode this Base64 string to UTF-8 text",
+        "Recover plain text from a Base64-encoded payload",
+        "Check whether a Base64 string is valid and decode it"
+      ],
+      "do_not_use_when": [
+        "Encode plain text to Base64 (use base64_encode)",
+        "Decode percent-encoded URL components (use url_decode)",
+        "Decrypt ciphertext—Base64 decoding is not decryption"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -56,6 +66,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "base64_encode",
+        "url_decode"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "decode-base64-to-text",
+          "title": "Decode Base64 to text",
+          "description": "Decode a Base64 string into UTF-8 text, reporting invalid payloads as errors.",
+          "url": "https://agentbits.dev/tools/decode-base64-to-text"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/base64/decode"
@@ -63,14 +85,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "base64_decode"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "base64_encode",
       "type": "tool",
-      "description": "Encode a UTF-8 string into standard Base64.",
-      "documentation": "https://agentbits.dev/tools/base64_encode.md",
+      "description": "Convert a UTF-8 string into standard Base64 when you need a portable text encoding for credentials, binary-safe transport, or embedding data in JSON/HTTP fields.",
+      "documentation": "https://agentbits.dev/tools/base64-encode",
       "when_to_use": "Use this tool when you need deterministic Base64 encoding of text.",
+      "use_when": [
+        "Encode this UTF-8 string as Base64",
+        "Convert plain text into standard Base64 for transport",
+        "Produce a Base64 representation of a credential or payload string"
+      ],
+      "do_not_use_when": [
+        "Decode Base64 back to text (use base64_decode)",
+        "Percent-encode URL components (use url_encode)",
+        "Hash or encrypt data for security—Base64 is encoding only"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -113,6 +149,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "base64_decode",
+        "url_encode"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "encode-text-to-base64",
+          "title": "Encode text to Base64",
+          "description": "Encode a UTF-8 string into standard Base64.",
+          "url": "https://agentbits.dev/tools/encode-text-to-base64"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/base64/encode"
@@ -120,14 +168,25 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "base64_encode"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "countries",
       "type": "dataset",
       "description": "Versioned curated country metadata dataset used by country_lookup and countries_bulk.",
-      "documentation": "https://agentbits.dev/datasets/countries.md",
+      "documentation": "https://agentbits.dev/datasets/countries",
       "when_to_use": "Use when an agent needs ISO country metadata as a dataset rather than invoking a single lookup.",
+      "use_when": [
+        "Download the full countries reference dataset",
+        "Need every ISO country record in one request"
+      ],
+      "do_not_use_when": [
+        "Look up a single country by ISO code (use country_lookup, free)"
+      ],
       "http": {
         "method": "GET",
         "endpoint": "https://agentbits.dev/v1/datasets/countries/v1.json"
@@ -144,17 +203,47 @@
       },
       "version": "1",
       "status": "available",
+      "related": [
+        "country_lookup",
+        "countries_bulk"
+      ],
       "limitations": [
         "Bulk download is paid.",
         "Single-country lookup via country_lookup remains free."
+      ],
+      "payment": {
+        "protocol": "x402",
+        "network": "eip155:8453",
+        "currency": "USDC",
+        "price": "0.001",
+        "amount": "0.001",
+        "unit": "request",
+        "account_required": false,
+        "api_key_required": false,
+        "signup_required": false,
+        "notes": "No account. No API key. No signup. Agents can pay programmatically via x402."
+      },
+      "interfaces": [
+        "HTTP",
+        "x402"
       ]
     },
     {
       "name": "countries_bulk",
       "type": "tool",
-      "description": "Retrieve the full versioned countries dataset used by Agent Bits country lookups. Use when an agent needs bulk offline country metadata rather than a single country lookup.",
-      "documentation": "https://agentbits.dev/tools/countries_bulk.md",
+      "description": "Download the complete versioned countries dataset as JSON for caching, offline use, or multi-country analysis when a single country_lookup call is not enough.",
+      "documentation": "https://agentbits.dev/tools/countries-bulk",
       "when_to_use": "Use this tool when you need the complete countries dataset for a specific version (for caching, offline use, or multi-country analysis) instead of looking up one country code at a time.",
+      "use_when": [
+        "Download the full countries dataset as JSON",
+        "Cache the complete versioned countries snapshot for offline use",
+        "Analyze or filter many countries without repeated single-code lookups"
+      ],
+      "do_not_use_when": [
+        "Look up metadata for a single country by ISO code (use country_lookup instead)",
+        "Look up one currency or language code (use currency_lookup / language_lookup)",
+        "Fetch live geopolitical or exchange-rate feeds"
+      ],
       "pricing": {
         "type": "paid",
         "amount": "0.001",
@@ -270,6 +359,19 @@
         "Paid capability. Unpaid requests receive HTTP 402 / payment challenge.",
         "Returns the curated Agent Bits countries dataset, not a live feed."
       ],
+      "related": [
+        "country_lookup",
+        "currency_lookup",
+        "language_lookup"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "download-countries-dataset",
+          "title": "Download countries dataset",
+          "description": "Retrieve the full versioned countries dataset as JSON for bulk or offline use.",
+          "url": "https://agentbits.dev/tools/download-countries-dataset"
+        }
+      ],
       "http": {
         "method": "GET",
         "endpoint": "https://agentbits.dev/v1/datasets/countries/v1.json"
@@ -277,14 +379,41 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "countries_bulk"
-      }
+      },
+      "payment": {
+        "protocol": "x402",
+        "network": "eip155:8453",
+        "currency": "USDC",
+        "price": "0.001",
+        "amount": "0.001",
+        "unit": "request",
+        "account_required": false,
+        "api_key_required": false,
+        "signup_required": false,
+        "notes": "No account. No API key. No signup. Agents can pay programmatically via x402."
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP",
+        "x402"
+      ]
     },
     {
       "name": "country_lookup",
       "type": "tool",
-      "description": "Look up metadata for an ISO 3166-1 alpha-2 country code. Use this when an agent needs a country's name, currency, language, calling code, region, or related standardized country metadata.",
-      "documentation": "https://agentbits.dev/tools/country_lookup.md",
+      "description": "Resolve an ISO 3166-1 alpha-2 country code (for example CA, US, JP) to official name, region, currency, calling code, languages, and related country metadata when you already have the two-letter code.",
+      "documentation": "https://agentbits.dev/tools/country-lookup",
       "when_to_use": "Use this tool when you need metadata for a country identified by an ISO 3166-1 alpha-2 code (for example CA, US, JP), including common name, official name, region, currency, calling code, or languages.",
+      "use_when": [
+        "What currency and calling code does country code JP use?",
+        "Get official name, region, and languages for ISO country CA",
+        "Look up standardized metadata for a two-letter ISO 3166-1 country code"
+      ],
+      "do_not_use_when": [
+        "Download the full countries dataset for offline or multi-country use (use countries_bulk)",
+        "Look up currency symbol or decimals by ISO 4217 code alone (use currency_lookup)",
+        "Search for a country when you only know its English name and not the ISO code"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -389,6 +518,18 @@
         "Accepts ISO 3166-1 alpha-2 codes only in v1.",
         "Dataset is a curated subset/versioned snapshot, not a live geopolitical feed."
       ],
+      "related": [
+        "countries_bulk",
+        "currency_lookup"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "lookup-country-from-iso-code",
+          "title": "Look up country from ISO code",
+          "description": "Resolve an ISO 3166-1 alpha-2 country code to name, currency, calling code, languages, and region metadata.",
+          "url": "https://agentbits.dev/tools/lookup-country-from-iso-code"
+        }
+      ],
       "http": {
         "method": "GET",
         "endpoint": "https://agentbits.dev/v1/countries/{code}"
@@ -396,13 +537,17 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "country_lookup"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "currencies",
       "type": "dataset",
       "description": "Curated currencies dataset (v1, 20 records) used by related lookup tools.",
-      "documentation": "https://agentbits.dev/datasets/currencies.md",
+      "documentation": "https://agentbits.dev/datasets/currencies",
       "when_to_use": "Use when an agent needs the currencies reference dataset or related lookup metadata.",
       "pricing": {
         "type": "free"
@@ -412,14 +557,25 @@
       "limitations": [
         "Bundled curated snapshot served by the hosted service.",
         "Not a live continuously updating feed."
-      ]
+      ],
+      "interfaces": []
     },
     {
       "name": "currency_lookup",
       "type": "tool",
-      "description": "Look up currency metadata for an ISO 4217 code, including name, symbol, decimals, and related countries.",
-      "documentation": "https://agentbits.dev/tools/currency_lookup.md",
+      "description": "Resolve an ISO 4217 currency code such as USD, EUR, or JPY to its name, symbol, decimal places, and which countries use it when you need currency metadata rather than a live exchange rate.",
+      "documentation": "https://agentbits.dev/tools/currency-lookup",
       "when_to_use": "Use this tool when you need metadata for a currency code such as USD, EUR, or JPY.",
+      "use_when": [
+        "What is the symbol and number of decimal places for EUR?",
+        "Which countries use currency code JPY?",
+        "Get ISO 4217 name and metadata for USD"
+      ],
+      "do_not_use_when": [
+        "Convert amounts between currencies or fetch live FX rates",
+        "Find which currency a country uses when you only have a country code (use country_lookup)",
+        "Validate payment-card-like numbers (use luhn_validate)"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -494,6 +650,18 @@
           }
         }
       ],
+      "related": [
+        "country_lookup",
+        "luhn_validate"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "lookup-currency-from-iso-4217-code",
+          "title": "Look up currency from ISO 4217 code",
+          "description": "Resolve an ISO 4217 currency code to name, symbol, decimals, and related countries.",
+          "url": "https://agentbits.dev/tools/lookup-currency-from-iso-4217-code"
+        }
+      ],
       "http": {
         "method": "GET",
         "endpoint": "https://agentbits.dev/v1/currencies/{code}"
@@ -501,14 +669,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "currency_lookup"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "http_status_lookup",
       "type": "tool",
-      "description": "Resolve a numeric HTTP status code to its standard name and a short description.",
-      "documentation": "https://agentbits.dev/tools/http_status_lookup.md",
+      "description": "Explain what a numeric HTTP status code such as 404 or 429 means by returning its standard reason phrase and a short description for debugging or API responses.",
+      "documentation": "https://agentbits.dev/tools/http-status-lookup",
       "when_to_use": "Use this tool when you need the meaning of an HTTP status code such as 404 or 429.",
+      "use_when": [
+        "What does HTTP status 404 mean?",
+        "Get the standard name and description for status code 429",
+        "Explain an HTTP response code returned by an API"
+      ],
+      "do_not_use_when": [
+        "Decide whether a request succeeded without needing the status name",
+        "Look up MIME types or content-type headers (use mime_lookup)",
+        "Diagnose TLS, DNS, or network failures that are not HTTP status codes"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -563,6 +745,17 @@
           }
         }
       ],
+      "related": [
+        "mime_lookup"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "explain-http-status-code",
+          "title": "Explain an HTTP status code",
+          "description": "Resolve a numeric HTTP status code to its standard name and short description.",
+          "url": "https://agentbits.dev/tools/explain-http-status-code"
+        }
+      ],
       "http": {
         "method": "GET",
         "endpoint": "https://agentbits.dev/v1/http-status/{code}"
@@ -570,14 +763,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "http_status_lookup"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "isbn_validate",
       "type": "tool",
-      "description": "Validate ISBN-10/ISBN-13 identifiers using checksum rules and return normalized digits.",
-      "documentation": "https://agentbits.dev/tools/isbn_validate.md",
+      "description": "Verify whether an ISBN-10 or ISBN-13 passes checksum rules and return normalized digits when checking book identifiers before catalog or purchase flows.",
+      "documentation": "https://agentbits.dev/tools/isbn-validate",
       "when_to_use": "Use this tool when you need to determine whether an ISBN is checksum-valid.",
+      "use_when": [
+        "Is this ISBN valid?",
+        "Check the checksum for an ISBN-13 book identifier",
+        "Normalize and validate an ISBN-10 or ISBN-13 string"
+      ],
+      "do_not_use_when": [
+        "Look up book title, author, or cover metadata from an ISBN",
+        "Validate UUIDs (use uuid_validate) or payment-card Luhn numbers (use luhn_validate)",
+        "Validate arbitrary barcode formats that are not ISBN-10/13"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -648,6 +855,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "luhn_validate",
+        "uuid_validate"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "validate-isbn-checksum",
+          "title": "Validate an ISBN checksum",
+          "description": "Validate ISBN-10/ISBN-13 identifiers using checksum rules and return normalized digits.",
+          "url": "https://agentbits.dev/tools/validate-isbn-checksum"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/isbn/validate"
@@ -655,14 +874,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "isbn_validate"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "json_validate",
       "type": "tool",
-      "description": "Parse and validate a JSON string, returning whether it is valid and a normalized form when possible.",
-      "documentation": "https://agentbits.dev/tools/json_validate.md",
+      "description": "Parse a string as JSON to confirm it is well-formed and return a normalized representation when possible before further processing or storage.",
+      "documentation": "https://agentbits.dev/tools/json-validate",
       "when_to_use": "Use this tool when you need to verify that text is valid JSON before further processing.",
+      "use_when": [
+        "Is this string valid JSON?",
+        "Parse and normalize a JSON payload before processing",
+        "Check whether agent or user-supplied text is well-formed JSON"
+      ],
+      "do_not_use_when": [
+        "Validate against a specific JSON Schema or OpenAPI model beyond well-formedness",
+        "Encode or decode Base64 (use base64_encode / base64_decode)",
+        "Validate UUID or ISBN identifier formats"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -728,6 +961,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "base64_decode",
+        "base64_encode"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "validate-json-string",
+          "title": "Validate a JSON string",
+          "description": "Parse and validate a JSON string, returning validity and a normalized form when possible.",
+          "url": "https://agentbits.dev/tools/validate-json-string"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/json/validate"
@@ -735,14 +980,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "json_validate"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "language_lookup",
       "type": "tool",
-      "description": "Look up language name and native name for an ISO 639-1 code.",
-      "documentation": "https://agentbits.dev/tools/language_lookup.md",
+      "description": "Resolve an ISO 639-1 language code such as en, fr, or ja to its English name and native name when you need language metadata from a two-letter code.",
+      "documentation": "https://agentbits.dev/tools/language-lookup",
       "when_to_use": "Use this tool when you need metadata for a language code such as en, fr, or ja.",
+      "use_when": [
+        "What language does ISO 639-1 code ja refer to?",
+        "Get the native name for language code fr",
+        "Resolve a two-letter language code to its English and native names"
+      ],
+      "do_not_use_when": [
+        "Translate text between languages",
+        "Detect the language of arbitrary free-form text",
+        "Look up country languages from a country code (use country_lookup)"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -800,6 +1059,17 @@
           }
         }
       ],
+      "related": [
+        "country_lookup"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "lookup-language-from-iso-639-1-code",
+          "title": "Look up language from ISO 639-1 code",
+          "description": "Resolve an ISO 639-1 language code to English and native language names.",
+          "url": "https://agentbits.dev/tools/lookup-language-from-iso-639-1-code"
+        }
+      ],
       "http": {
         "method": "GET",
         "endpoint": "https://agentbits.dev/v1/languages/{code}"
@@ -807,13 +1077,17 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "language_lookup"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "languages",
       "type": "dataset",
       "description": "Curated languages dataset (v1, 20 records) used by related lookup tools.",
-      "documentation": "https://agentbits.dev/datasets/languages.md",
+      "documentation": "https://agentbits.dev/datasets/languages",
       "when_to_use": "Use when an agent needs the languages reference dataset or related lookup metadata.",
       "pricing": {
         "type": "free"
@@ -823,14 +1097,25 @@
       "limitations": [
         "Bundled curated snapshot served by the hosted service.",
         "Not a live continuously updating feed."
-      ]
+      ],
+      "interfaces": []
     },
     {
       "name": "luhn_validate",
       "type": "tool",
-      "description": "Validate identifiers such as payment-card-like numbers using the Luhn algorithm.",
-      "documentation": "https://agentbits.dev/tools/luhn_validate.md",
+      "description": "Run the Luhn checksum on a numeric string such as a payment-card-like identifier to verify the check digit before accepting or storing the value.",
+      "documentation": "https://agentbits.dev/tools/luhn-validate",
       "when_to_use": "Use this tool when you need to verify a number with a Luhn check digit.",
+      "use_when": [
+        "Does this number pass a Luhn check?",
+        "Validate a payment-card-like identifier checksum",
+        "Verify a numeric ID that uses a Luhn check digit"
+      ],
+      "do_not_use_when": [
+        "Charge a card, tokenize payments, or call a payment processor",
+        "Validate ISBNs (use isbn_validate) or UUIDs (use uuid_validate)",
+        "Look up currency metadata (use currency_lookup)"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -885,6 +1170,19 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "currency_lookup",
+        "isbn_validate",
+        "uuid_validate"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "validate-luhn-checksum",
+          "title": "Validate a Luhn checksum",
+          "description": "Verify a numeric string using the Luhn check-digit algorithm.",
+          "url": "https://agentbits.dev/tools/validate-luhn-checksum"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/luhn/validate"
@@ -892,14 +1190,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "luhn_validate"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "mime_lookup",
       "type": "tool",
-      "description": "Resolve a file extension or MIME type to curated MIME metadata.",
-      "documentation": "https://agentbits.dev/tools/mime_lookup.md",
+      "description": "Map a file extension such as webp or png, or a MIME type string, to curated Content-Type metadata when setting headers, validating uploads, or choosing a media type.",
+      "documentation": "https://agentbits.dev/tools/mime-lookup",
       "when_to_use": "Use this tool when you need the MIME type for a file extension such as webp, or metadata for a MIME type string.",
+      "use_when": [
+        "What MIME type should I use for a .webp file?",
+        "Look up metadata for Content-Type application/json",
+        "Resolve a file extension to the correct MIME type for an upload or response header"
+      ],
+      "do_not_use_when": [
+        "Sniff or detect MIME type from raw file bytes",
+        "Encode or decode Base64 file payloads (use base64_encode / base64_decode)",
+        "Look up DNS top-level domain metadata (use tld_lookup)"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -956,6 +1268,19 @@
           }
         }
       ],
+      "related": [
+        "base64_decode",
+        "base64_encode",
+        "tld_lookup"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "resolve-mime-type-from-extension",
+          "title": "Resolve MIME type from extension",
+          "description": "Map a file extension or MIME type string to curated MIME metadata.",
+          "url": "https://agentbits.dev/tools/resolve-mime-type-from-extension"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/mime/lookup"
@@ -963,13 +1288,17 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "mime_lookup"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "mime-types",
       "type": "dataset",
       "description": "Curated mime-types dataset (v1, 20 records) used by related lookup tools.",
-      "documentation": "https://agentbits.dev/datasets/mime-types.md",
+      "documentation": "https://agentbits.dev/datasets/mime-types",
       "when_to_use": "Use when an agent needs the mime-types reference dataset or related lookup metadata.",
       "pricing": {
         "type": "free"
@@ -979,14 +1308,25 @@
       "limitations": [
         "Bundled curated snapshot served by the hosted service.",
         "Not a live continuously updating feed."
-      ]
+      ],
+      "interfaces": []
     },
     {
       "name": "timestamp_convert",
       "type": "tool",
-      "description": "Convert Unix epoch seconds/milliseconds to ISO-8601, or ISO-8601 to Unix epoch values.",
-      "documentation": "https://agentbits.dev/tools/timestamp_convert.md",
+      "description": "Convert Unix epoch seconds or milliseconds to ISO-8601, or an ISO-8601 datetime to Unix epoch values, when bridging APIs that disagree on time formats.",
+      "documentation": "https://agentbits.dev/tools/timestamp-convert",
       "when_to_use": "Use this tool when you need deterministic conversion between Unix timestamps and ISO-8601 datetimes.",
+      "use_when": [
+        "Convert this Unix timestamp to ISO-8601",
+        "Turn an ISO-8601 datetime into epoch milliseconds",
+        "Bridge APIs that mix Unix seconds and ISO-8601 strings"
+      ],
+      "do_not_use_when": [
+        "Convert a datetime between IANA timezones while preserving the instant (use timezone_convert)",
+        "Convert length, mass, or temperature units (use unit_convert)",
+        "Interpret relative phrases like 'next Tuesday' or 'in 3 hours'"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -1054,6 +1394,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "timezone_convert",
+        "unit_convert"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "convert-unix-and-iso-timestamps",
+          "title": "Convert Unix and ISO timestamps",
+          "description": "Convert between Unix epoch seconds/milliseconds and ISO-8601 datetime strings.",
+          "url": "https://agentbits.dev/tools/convert-unix-and-iso-timestamps"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/timestamp/convert"
@@ -1061,14 +1413,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "timestamp_convert"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "timezone_convert",
       "type": "tool",
-      "description": "Convert an ISO-8601 datetime from one IANA timezone to another, preserving the instant.",
-      "documentation": "https://agentbits.dev/tools/timezone_convert.md",
+      "description": "Convert an ISO-8601 datetime from one IANA timezone to another while preserving the same instant, including daylight-saving-aware wall times such as Toronto to Tokyo.",
+      "documentation": "https://agentbits.dev/tools/timezone-convert",
       "when_to_use": "Use this tool when you need to convert a datetime between IANA timezones, including daylight-saving-time-aware conversions.",
+      "use_when": [
+        "What time is 3pm Toronto in Tokyo?",
+        "Convert an ISO-8601 datetime from America/New_York to Europe/London",
+        "Show the same instant in another IANA timezone with DST-aware offsets"
+      ],
+      "do_not_use_when": [
+        "Only convert between Unix epoch and ISO-8601 without changing timezone (use timestamp_convert)",
+        "Convert length, mass, or temperature units (use unit_convert)",
+        "Guess a city timezone from a postal address without an IANA zone id"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -1167,6 +1533,18 @@
       "limitations": [
         "Relies on the runtime IANA timezone database via Intl."
       ],
+      "related": [
+        "timestamp_convert",
+        "unit_convert"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "convert-datetime-between-timezones",
+          "title": "Convert datetime between timezones",
+          "description": "Convert an ISO-8601 datetime from one IANA timezone to another, preserving the instant.",
+          "url": "https://agentbits.dev/tools/convert-datetime-between-timezones"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/timezone/convert"
@@ -1174,13 +1552,17 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "timezone_convert"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "timezones",
       "type": "dataset",
       "description": "Curated timezones dataset (v1, 17 records) used by related lookup tools.",
-      "documentation": "https://agentbits.dev/datasets/timezones.md",
+      "documentation": "https://agentbits.dev/datasets/timezones",
       "when_to_use": "Use when an agent needs the timezones reference dataset or related lookup metadata.",
       "pricing": {
         "type": "free"
@@ -1190,14 +1572,25 @@
       "limitations": [
         "Bundled curated snapshot served by the hosted service.",
         "Not a live continuously updating feed."
-      ]
+      ],
+      "interfaces": []
     },
     {
       "name": "tld_lookup",
       "type": "tool",
-      "description": "Look up curated metadata for a DNS top-level domain such as com, io, or ai.",
-      "documentation": "https://agentbits.dev/tools/tld_lookup.md",
+      "description": "Identify what a DNS top-level domain such as com, io, or ai is classified as and commonly used for when classifying domains or answering TLD questions.",
+      "documentation": "https://agentbits.dev/tools/tld-lookup",
       "when_to_use": "Use this tool when you need to understand what a TLD is classified as or commonly used for.",
+      "use_when": [
+        "What kind of TLD is .io?",
+        "Is .ai a country-code or generic top-level domain?",
+        "Get curated metadata for DNS TLD com"
+      ],
+      "do_not_use_when": [
+        "Check whether a full domain name is registered or available",
+        "Resolve DNS records or WHOIS ownership",
+        "Look up MIME types for file extensions (use mime_lookup)"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -1249,6 +1642,17 @@
           }
         }
       ],
+      "related": [
+        "mime_lookup"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "lookup-tld-metadata",
+          "title": "Look up TLD metadata",
+          "description": "Resolve a DNS top-level domain to curated classification and usage metadata.",
+          "url": "https://agentbits.dev/tools/lookup-tld-metadata"
+        }
+      ],
       "http": {
         "method": "GET",
         "endpoint": "https://agentbits.dev/v1/tlds/{tld}"
@@ -1256,14 +1660,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "tld_lookup"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "unit_convert",
       "type": "tool",
-      "description": "Convert numeric values between supported units for length, mass, and temperature.",
-      "documentation": "https://agentbits.dev/tools/unit_convert.md",
+      "description": "Convert a numeric value between supported length, mass, or temperature units—for example miles to kilometers or Celsius to Fahrenheit—when you need a deterministic unit conversion.",
+      "documentation": "https://agentbits.dev/tools/unit-convert",
       "when_to_use": "Use this tool when you need deterministic unit conversion such as miles to kilometers or Celsius to Fahrenheit.",
+      "use_when": [
+        "Convert 10 miles to kilometers",
+        "What is 25°C in Fahrenheit?",
+        "Convert a mass value between kilograms and pounds"
+      ],
+      "do_not_use_when": [
+        "Convert currencies or fetch exchange rates (use currency_lookup for metadata only)",
+        "Convert timestamps or timezones (use timestamp_convert / timezone_convert)",
+        "Convert unsupported unit categories outside length, mass, and temperature"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -1327,6 +1745,19 @@
       "limitations": [
         "Supports a curated set of length, mass, and temperature units in v1."
       ],
+      "related": [
+        "currency_lookup",
+        "timestamp_convert",
+        "timezone_convert"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "convert-length-mass-or-temperature",
+          "title": "Convert length, mass, or temperature",
+          "description": "Convert numeric values between supported units for length, mass, and temperature.",
+          "url": "https://agentbits.dev/tools/convert-length-mass-or-temperature"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/unit/convert"
@@ -1334,14 +1765,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "unit_convert"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "url_decode",
       "type": "tool",
-      "description": "Decode a percent-encoded URL component into plain text.",
-      "documentation": "https://agentbits.dev/tools/url_decode.md",
+      "description": "Decode a percent-encoded URL component into plain text when reading query parameters, path segments, or form values that contain escaped characters.",
+      "documentation": "https://agentbits.dev/tools/url-decode",
       "when_to_use": "Use this tool when you need deterministic URL component decoding.",
+      "use_when": [
+        "Decode this percent-encoded URL component",
+        "Convert %20-style escapes back to plain text",
+        "Recover the original string from an encoded query parameter"
+      ],
+      "do_not_use_when": [
+        "Percent-encode text for a URL (use url_encode)",
+        "Decode Base64 payloads (use base64_decode)",
+        "Parse HTML entities that are not URL percent-encoding"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -1383,6 +1828,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "base64_decode",
+        "url_encode"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "decode-percent-encoded-url-component",
+          "title": "Decode a percent-encoded URL component",
+          "description": "Decode a percent-encoded URL component into plain text.",
+          "url": "https://agentbits.dev/tools/decode-percent-encoded-url-component"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/url/decode"
@@ -1390,14 +1847,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "url_decode"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "url_encode",
       "type": "tool",
-      "description": "Apply encodeURIComponent-style percent-encoding to a string.",
-      "documentation": "https://agentbits.dev/tools/url_encode.md",
+      "description": "Apply encodeURIComponent-style percent-encoding so query parameters, path segments, or form values are safe to place in a URL.",
+      "documentation": "https://agentbits.dev/tools/url-encode",
       "when_to_use": "Use this tool when you need deterministic URL component encoding.",
+      "use_when": [
+        "Percent-encode this string for a query parameter",
+        "Make a path segment URL-safe with encodeURIComponent-style encoding",
+        "Encode special characters before inserting text into a URL"
+      ],
+      "do_not_use_when": [
+        "Decode a percent-encoded string (use url_decode)",
+        "Encode binary data as Base64 (use base64_encode)",
+        "Build or rewrite a full absolute URL structure beyond component encoding"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -1439,6 +1910,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "base64_encode",
+        "url_decode"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "percent-encode-url-component",
+          "title": "Percent-encode a URL component",
+          "description": "Apply encodeURIComponent-style percent-encoding to a string.",
+          "url": "https://agentbits.dev/tools/percent-encode-url-component"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/url/encode"
@@ -1446,14 +1929,28 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "url_encode"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     },
     {
       "name": "uuid_validate",
       "type": "tool",
-      "description": "Validate whether a string is a UUID and identify UUID version/variant metadata when possible.",
-      "documentation": "https://agentbits.dev/tools/uuid_validate.md",
+      "description": "Check whether a string is a well-formed UUID and, when recognizable, report its version and variant so you can accept or reject identifier inputs confidently.",
+      "documentation": "https://agentbits.dev/tools/uuid-validate",
       "when_to_use": "Use this tool when you need to check if a value is a valid UUID, including common version 4 identifiers.",
+      "use_when": [
+        "Is this string a valid UUID?",
+        "What version and variant is this UUID?",
+        "Validate a UUID before using it as a primary key or request id"
+      ],
+      "do_not_use_when": [
+        "Generate a new UUID",
+        "Validate ISBNs or other non-UUID identifiers (use isbn_validate)",
+        "Validate JSON structure (use json_validate)"
+      ],
       "pricing": {
         "type": "free"
       },
@@ -1534,6 +2031,18 @@
         }
       ],
       "limitations": [],
+      "related": [
+        "isbn_validate",
+        "json_validate"
+      ],
+      "discovery_intents": [
+        {
+          "slug": "validate-uuid-string",
+          "title": "Validate a UUID string",
+          "description": "Check whether a string is a UUID and report version/variant metadata when possible.",
+          "url": "https://agentbits.dev/tools/validate-uuid-string"
+        }
+      ],
       "http": {
         "method": "POST",
         "endpoint": "https://agentbits.dev/v1/uuid/validate"
@@ -1541,7 +2050,11 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "uuid_validate"
-      }
+      },
+      "interfaces": [
+        "HTTP",
+        "MCP"
+      ]
     }
   ]
 }

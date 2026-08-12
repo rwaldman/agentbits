@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Bits — utilities and datasets for AI agents</title>
+  <meta name="description" content="Machine-readable utilities and datasets for AI agents." />
+  <link rel="canonical" href="https://agentbits.dev/" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://agentbits.dev/#organization","name":"Agent Bits","url":"https://agentbits.dev","sameAs":["https://github.com/rwaldman/agentbits"],"description":"Machine-readable utilities and datasets for AI agents."},{"@type":"WebSite","@id":"https://agentbits.dev/#website","url":"https://agentbits.dev","name":"Agent Bits","description":"Machine-readable utilities and datasets for AI agents.","publisher":{"@id":"https://agentbits.dev/#organization"}},{"@type":"WebAPI","@id":"https://agentbits.dev/#api","name":"Agent Bits HTTP API","description":"Machine-readable utilities and datasets for AI agents.","documentation":"https://agentbits.dev/openapi.json","url":"https://agentbits.dev","provider":{"@id":"https://agentbits.dev/#organization"}},{"@type":"SoftwareApplication","name":"Agent Bits","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://agentbits.dev","description":"Machine-readable utilities and datasets for AI agents.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"Many capabilities are free; paid capabilities use x402 USDC on Base."}},{"@type":"SoftwareApplication","name":"base64_decode","description":"Decode a Base64 string into UTF-8 text and report invalid payloads as errors when recovering embedded credentials, tokens, or transport-encoded content.","url":"https://agentbits.dev/tools/base64-decode","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"base64_encode","description":"Convert a UTF-8 string into standard Base64 when you need a portable text encoding for credentials, binary-safe transport, or embedding data in JSON/HTTP fields.","url":"https://agentbits.dev/tools/base64-encode","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"countries_bulk","description":"Download the complete versioned countries dataset as JSON for caching, offline use, or multi-country analysis when a single country_lookup call is not enough.","url":"https://agentbits.dev/tools/countries-bulk","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"country_lookup","description":"Resolve an ISO 3166-1 alpha-2 country code (for example CA, US, JP) to official name, region, currency, calling code, languages, and related country metadata when you already have the two-letter code.","url":"https://agentbits.dev/tools/country-lookup","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"currency_lookup","description":"Resolve an ISO 4217 currency code such as USD, EUR, or JPY to its name, symbol, decimal places, and which countries use it when you need currency metadata rather than a live exchange rate.","url":"https://agentbits.dev/tools/currency-lookup","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"http_status_lookup","description":"Explain what a numeric HTTP status code such as 404 or 429 means by returning its standard reason phrase and a short description for debugging or API responses.","url":"https://agentbits.dev/tools/http-status-lookup","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"isbn_validate","description":"Verify whether an ISBN-10 or ISBN-13 passes checksum rules and return normalized digits when checking book identifiers before catalog or purchase flows.","url":"https://agentbits.dev/tools/isbn-validate","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"json_validate","description":"Parse a string as JSON to confirm it is well-formed and return a normalized representation when possible before further processing or storage.","url":"https://agentbits.dev/tools/json-validate","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"language_lookup","description":"Resolve an ISO 639-1 language code such as en, fr, or ja to its English name and native name when you need language metadata from a two-letter code.","url":"https://agentbits.dev/tools/language-lookup","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"luhn_validate","description":"Run the Luhn checksum on a numeric string such as a payment-card-like identifier to verify the check digit before accepting or storing the value.","url":"https://agentbits.dev/tools/luhn-validate","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"mime_lookup","description":"Map a file extension such as webp or png, or a MIME type string, to curated Content-Type metadata when setting headers, validating uploads, or choosing a media type.","url":"https://agentbits.dev/tools/mime-lookup","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"timestamp_convert","description":"Convert Unix epoch seconds or milliseconds to ISO-8601, or an ISO-8601 datetime to Unix epoch values, when bridging APIs that disagree on time formats.","url":"https://agentbits.dev/tools/timestamp-convert","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"timezone_convert","description":"Convert an ISO-8601 datetime from one IANA timezone to another while preserving the same instant, including daylight-saving-aware wall times such as Toronto to Tokyo.","url":"https://agentbits.dev/tools/timezone-convert","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"tld_lookup","description":"Identify what a DNS top-level domain such as com, io, or ai is classified as and commonly used for when classifying domains or answering TLD questions.","url":"https://agentbits.dev/tools/tld-lookup","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"unit_convert","description":"Convert a numeric value between supported length, mass, or temperature units—for example miles to kilometers or Celsius to Fahrenheit—when you need a deterministic unit conversion.","url":"https://agentbits.dev/tools/unit-convert","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"url_decode","description":"Decode a percent-encoded URL component into plain text when reading query parameters, path segments, or form values that contain escaped characters.","url":"https://agentbits.dev/tools/url-decode","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"url_encode","description":"Apply encodeURIComponent-style percent-encoding so query parameters, path segments, or form values are safe to place in a URL.","url":"https://agentbits.dev/tools/url-encode","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}},{"@type":"SoftwareApplication","name":"uuid_validate","description":"Check whether a string is a well-formed UUID and, when recognizable, report its version and variant so you can accept or reject identifier inputs confidently.","url":"https://agentbits.dev/tools/uuid-validate","applicationCategory":"DeveloperApplication","isPartOf":{"@id":"https://agentbits.dev/#website"}}]}</script>
+  <style>
+    :root {
+      --bg: #0f1412;
+      --fg: #e8eee9;
+      --muted: #9aaba0;
+      --line: #2a3830;
+      --accent: #7dbe8e;
+      --font: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #1a2a22 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #162018 0%, transparent 50%),
+        var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+    }
+    main { max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    h1 { font-size: 2rem; margin: 0 0 0.35rem; letter-spacing: -0.02em; }
+    .tagline { color: var(--muted); margin: 0 0 1.5rem; }
+    .site { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 1.05rem; margin: 0 0 0.35rem; }
+    h2 a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line); }
+    h2 a:hover { border-color: var(--accent); color: var(--accent); }
+    .section-title { margin-top: 2.25rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .capability { margin: 1.25rem 0; padding-bottom: 1rem; border-bottom: 1px dashed var(--line); }
+    .capability p { margin: 0.25rem 0; }
+    .meta { color: var(--muted); font-size: 0.9rem; }
+    ul.links { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+    ul.links li { margin: 0.35rem 0; }
+    ul.links a { color: var(--accent); }
+    .note { color: var(--muted); margin-top: 1.5rem; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Agent Bits</h1>
+    <p class="tagline">Machine-readable utilities and datasets for AI agents.</p>
+    <p><a class="site" href="https://agentbits.dev">https://agentbits.dev</a></p>
+
+    <p class="section-title">Capabilities</p>
+    <section class="capability">
+  <h2><a href="/tools/base64-decode">base64_decode</a></h2>
+  <p>Decode a Base64 string into UTF-8 text and report invalid payloads as errors when recovering embedded credentials, tokens, or transport-encoded content.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/base64-encode">base64_encode</a></h2>
+  <p>Convert a UTF-8 string into standard Base64 when you need a portable text encoding for credentials, binary-safe transport, or embedding data in JSON/HTTP fields.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/countries-bulk">countries_bulk</a></h2>
+  <p>Download the complete versioned countries dataset as JSON for caching, offline use, or multi-country analysis when a single country_lookup call is not enough.</p>
+  <p class="meta">$0.001 USDC · HTTP · MCP · x402</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/country-lookup">country_lookup</a></h2>
+  <p>Resolve an ISO 3166-1 alpha-2 country code (for example CA, US, JP) to official name, region, currency, calling code, languages, and related country metadata when you already have the two-letter code.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/currency-lookup">currency_lookup</a></h2>
+  <p>Resolve an ISO 4217 currency code such as USD, EUR, or JPY to its name, symbol, decimal places, and which countries use it when you need currency metadata rather than a live exchange rate.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/http-status-lookup">http_status_lookup</a></h2>
+  <p>Explain what a numeric HTTP status code such as 404 or 429 means by returning its standard reason phrase and a short description for debugging or API responses.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/isbn-validate">isbn_validate</a></h2>
+  <p>Verify whether an ISBN-10 or ISBN-13 passes checksum rules and return normalized digits when checking book identifiers before catalog or purchase flows.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/json-validate">json_validate</a></h2>
+  <p>Parse a string as JSON to confirm it is well-formed and return a normalized representation when possible before further processing or storage.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/language-lookup">language_lookup</a></h2>
+  <p>Resolve an ISO 639-1 language code such as en, fr, or ja to its English name and native name when you need language metadata from a two-letter code.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/luhn-validate">luhn_validate</a></h2>
+  <p>Run the Luhn checksum on a numeric string such as a payment-card-like identifier to verify the check digit before accepting or storing the value.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/mime-lookup">mime_lookup</a></h2>
+  <p>Map a file extension such as webp or png, or a MIME type string, to curated Content-Type metadata when setting headers, validating uploads, or choosing a media type.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/timestamp-convert">timestamp_convert</a></h2>
+  <p>Convert Unix epoch seconds or milliseconds to ISO-8601, or an ISO-8601 datetime to Unix epoch values, when bridging APIs that disagree on time formats.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/timezone-convert">timezone_convert</a></h2>
+  <p>Convert an ISO-8601 datetime from one IANA timezone to another while preserving the same instant, including daylight-saving-aware wall times such as Toronto to Tokyo.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/tld-lookup">tld_lookup</a></h2>
+  <p>Identify what a DNS top-level domain such as com, io, or ai is classified as and commonly used for when classifying domains or answering TLD questions.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/unit-convert">unit_convert</a></h2>
+  <p>Convert a numeric value between supported length, mass, or temperature units—for example miles to kilometers or Celsius to Fahrenheit—when you need a deterministic unit conversion.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/url-decode">url_decode</a></h2>
+  <p>Decode a percent-encoded URL component into plain text when reading query parameters, path segments, or form values that contain escaped characters.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/url-encode">url_encode</a></h2>
+  <p>Apply encodeURIComponent-style percent-encoding so query parameters, path segments, or form values are safe to place in a URL.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+<section class="capability">
+  <h2><a href="/tools/uuid-validate">uuid_validate</a></h2>
+  <p>Check whether a string is a well-formed UUID and, when recognizable, report its version and variant so you can accept or reject identifier inputs confidently.</p>
+  <p class="meta">Free · HTTP · MCP</p>
+</section>
+
+    <p class="section-title">For agents</p>
+    <ul class="links">
+      <li>Catalog: <a href="/catalog.json">https://agentbits.dev/catalog.json</a></li>
+      <li>MCP: <a href="/mcp">https://agentbits.dev/mcp</a></li>
+      <li>OpenAPI: <a href="/openapi.json">https://agentbits.dev/openapi.json</a></li>
+      <li>Documentation: <a href="/docs/">https://agentbits.dev/docs/</a></li>
+      <li>Agent guide: <a href="/for-agents">https://agentbits.dev/for-agents</a></li>
+      <li>llms.txt: <a href="/llms.txt">https://agentbits.dev/llms.txt</a></li>
+    </ul>
+
+    <p class="note">Paid capabilities use x402 on Base with USDC. No account. No API key. No signup. Agents can pay programmatically.</p>
+    <p class="note">GitHub: <a href="https://github.com/rwaldman/agentbits">https://github.com/rwaldman/agentbits</a></p>
+  </main>
+</body>
+</html>

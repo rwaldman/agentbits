@@ -7,26 +7,48 @@ Agent Bits capabilities may be:
 
 ## Design intent
 
-Payment is an access-policy concern, not a tool-implementation concern.
+Payment is an access-policy concern and a **discovery feature**, not only a billing mechanism.
 
 Agents should:
 
-1. discover pricing from catalog/docs;
+1. discover pricing and payment metadata from catalog/docs;
 2. invoke the capability;
 3. satisfy any machine-readable payment challenge;
 4. retry/continue according to the protocol response.
 
-## Initial direction
+## x402 discovery metadata
 
-Paid access uses x402 on Base (`eip155:8453`) in production.
+Paid capabilities publish payment fields such as:
 
-Unpaid requests receive HTTP `402` with a machine-readable payment challenge. Clients satisfy the challenge and retry with a payment signature header.
+```json
+{
+  "payment": {
+    "protocol": "x402",
+    "network": "eip155:8453",
+    "currency": "USDC",
+    "price": "0.001",
+    "account_required": false,
+    "api_key_required": false,
+    "signup_required": false,
+    "notes": "No account. No API key. No signup. Agents can pay programmatically via x402."
+  }
+}
+```
 
-## Important notes
+**No account. No API key. No signup. Agents can pay programmatically.**
 
-- Not every capability will be paid.
-- Pricing is part of the public contract for each paid capability.
-- Ambiguous billing behavior is considered a defect.
+## 402 responses
+
+Unpaid requests receive HTTP `402` with an informative body, for example:
+
+- human summary of price and network
+- `protocol: x402`
+- `currency: USDC`
+- `network` / Base label
+- machine-readable `accepts` plus `X-PAYMENT-REQUIRED`
+- explicit retry instruction after payment
+
+The agent should not need to leave the request to understand what happened.
 
 ## Current paid capabilities
 

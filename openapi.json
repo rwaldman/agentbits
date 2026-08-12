@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Agent Bits",
-    "version": "0.2.1",
-    "description": "Small, reliable utilities and datasets for AI agents.",
+    "version": "0.3.0",
+    "description": "Machine-readable utilities and datasets for AI agents.",
     "contact": {
       "url": "https://agentbits.dev"
     }
@@ -50,7 +50,7 @@
     "/v1/base64/decode": {
       "post": {
         "operationId": "base64_decode",
-        "summary": "Decode a Base64 string into UTF-8 text, reporting invalid payloads as errors.",
+        "summary": "Decode a Base64 string into UTF-8 text and report invalid payloads as errors when recovering embedded credentials, tokens, or transport-encoded content.",
         "tags": [
           "tool"
         ],
@@ -100,7 +100,7 @@
     "/v1/base64/encode": {
       "post": {
         "operationId": "base64_encode",
-        "summary": "Encode a UTF-8 string into standard Base64.",
+        "summary": "Convert a UTF-8 string into standard Base64 when you need a portable text encoding for credentials, binary-safe transport, or embedding data in JSON/HTTP fields.",
         "tags": [
           "tool"
         ],
@@ -150,7 +150,7 @@
     "/v1/datasets/countries/v1.json": {
       "get": {
         "operationId": "countries_bulk",
-        "summary": "Retrieve the full versioned countries dataset used by Agent Bits country lookups. Use when an agent needs bulk offline country metadata rather than a single country lookup.",
+        "summary": "Download the complete versioned countries dataset as JSON for caching, offline use, or multi-country analysis when a single country_lookup call is not enough.",
         "tags": [
           "tool"
         ],
@@ -268,7 +268,7 @@
     "/v1/countries/{code}": {
       "get": {
         "operationId": "country_lookup",
-        "summary": "Look up metadata for an ISO 3166-1 alpha-2 country code. Use this when an agent needs a country's name, currency, language, calling code, region, or related standardized country metadata.",
+        "summary": "Resolve an ISO 3166-1 alpha-2 country code (for example CA, US, JP) to official name, region, currency, calling code, languages, and related country metadata when you already have the two-letter code.",
         "tags": [
           "tool"
         ],
@@ -355,7 +355,7 @@
     "/v1/currencies/{code}": {
       "get": {
         "operationId": "currency_lookup",
-        "summary": "Look up currency metadata for an ISO 4217 code, including name, symbol, decimals, and related countries.",
+        "summary": "Resolve an ISO 4217 currency code such as USD, EUR, or JPY to its name, symbol, decimal places, and which countries use it when you need currency metadata rather than a live exchange rate.",
         "tags": [
           "tool"
         ],
@@ -422,7 +422,7 @@
     "/v1/http-status/{code}": {
       "get": {
         "operationId": "http_status_lookup",
-        "summary": "Resolve a numeric HTTP status code to its standard name and a short description.",
+        "summary": "Explain what a numeric HTTP status code such as 404 or 429 means by returning its standard reason phrase and a short description for debugging or API responses.",
         "tags": [
           "tool"
         ],
@@ -474,7 +474,7 @@
     "/v1/isbn/validate": {
       "post": {
         "operationId": "isbn_validate",
-        "summary": "Validate ISBN-10/ISBN-13 identifiers using checksum rules and return normalized digits.",
+        "summary": "Verify whether an ISBN-10 or ISBN-13 passes checksum rules and return normalized digits when checking book identifiers before catalog or purchase flows.",
         "tags": [
           "tool"
         ],
@@ -550,7 +550,7 @@
     "/v1/json/validate": {
       "post": {
         "operationId": "json_validate",
-        "summary": "Parse and validate a JSON string, returning whether it is valid and a normalized form when possible.",
+        "summary": "Parse a string as JSON to confirm it is well-formed and return a normalized representation when possible before further processing or storage.",
         "tags": [
           "tool"
         ],
@@ -621,7 +621,7 @@
     "/v1/languages/{code}": {
       "get": {
         "operationId": "language_lookup",
-        "summary": "Look up language name and native name for an ISO 639-1 code.",
+        "summary": "Resolve an ISO 639-1 language code such as en, fr, or ja to its English name and native name when you need language metadata from a two-letter code.",
         "tags": [
           "tool"
         ],
@@ -675,7 +675,7 @@
     "/v1/luhn/validate": {
       "post": {
         "operationId": "luhn_validate",
-        "summary": "Validate identifiers such as payment-card-like numbers using the Luhn algorithm.",
+        "summary": "Run the Luhn checksum on a numeric string such as a payment-card-like identifier to verify the check digit before accepting or storing the value.",
         "tags": [
           "tool"
         ],
@@ -736,7 +736,7 @@
     "/v1/mime/lookup": {
       "post": {
         "operationId": "mime_lookup",
-        "summary": "Resolve a file extension or MIME type to curated MIME metadata.",
+        "summary": "Map a file extension such as webp or png, or a MIME type string, to curated Content-Type metadata when setting headers, validating uploads, or choosing a media type.",
         "tags": [
           "tool"
         ],
@@ -798,7 +798,7 @@
     "/v1/timestamp/convert": {
       "post": {
         "operationId": "timestamp_convert",
-        "summary": "Convert Unix epoch seconds/milliseconds to ISO-8601, or ISO-8601 to Unix epoch values.",
+        "summary": "Convert Unix epoch seconds or milliseconds to ISO-8601, or an ISO-8601 datetime to Unix epoch values, when bridging APIs that disagree on time formats.",
         "tags": [
           "tool"
         ],
@@ -870,7 +870,7 @@
     "/v1/timezone/convert": {
       "post": {
         "operationId": "timezone_convert",
-        "summary": "Convert an ISO-8601 datetime from one IANA timezone to another, preserving the instant.",
+        "summary": "Convert an ISO-8601 datetime from one IANA timezone to another while preserving the same instant, including daylight-saving-aware wall times such as Toronto to Tokyo.",
         "tags": [
           "tool"
         ],
@@ -964,7 +964,7 @@
     "/v1/tlds/{tld}": {
       "get": {
         "operationId": "tld_lookup",
-        "summary": "Look up curated metadata for a DNS top-level domain such as com, io, or ai.",
+        "summary": "Identify what a DNS top-level domain such as com, io, or ai is classified as and commonly used for when classifying domains or answering TLD questions.",
         "tags": [
           "tool"
         ],
@@ -1013,7 +1013,7 @@
     "/v1/unit/convert": {
       "post": {
         "operationId": "unit_convert",
-        "summary": "Convert numeric values between supported units for length, mass, and temperature.",
+        "summary": "Convert a numeric value between supported length, mass, or temperature units—for example miles to kilometers or Celsius to Fahrenheit—when you need a deterministic unit conversion.",
         "tags": [
           "tool"
         ],
@@ -1078,7 +1078,7 @@
     "/v1/url/decode": {
       "post": {
         "operationId": "url_decode",
-        "summary": "Decode a percent-encoded URL component into plain text.",
+        "summary": "Decode a percent-encoded URL component into plain text when reading query parameters, path segments, or form values that contain escaped characters.",
         "tags": [
           "tool"
         ],
@@ -1127,7 +1127,7 @@
     "/v1/url/encode": {
       "post": {
         "operationId": "url_encode",
-        "summary": "Apply encodeURIComponent-style percent-encoding to a string.",
+        "summary": "Apply encodeURIComponent-style percent-encoding so query parameters, path segments, or form values are safe to place in a URL.",
         "tags": [
           "tool"
         ],
@@ -1176,7 +1176,7 @@
     "/v1/uuid/validate": {
       "post": {
         "operationId": "uuid_validate",
-        "summary": "Validate whether a string is a UUID and identify UUID version/variant metadata when possible.",
+        "summary": "Check whether a string is a well-formed UUID and, when recognizable, report its version and variant so you can accept or reject identifier inputs confidently.",
         "tags": [
           "tool"
         ],

@@ -1,6 +1,6 @@
 # Agent Bits — Full Agent Documentation
 
-Small, reliable utilities and datasets for AI agents.
+Machine-readable utilities and datasets for AI agents.
 
 ## Identity
 
@@ -9,7 +9,7 @@ Small, reliable utilities and datasets for AI agents.
 - MCP: https://agentbits.dev/mcp
 - API: https://agentbits.dev/api
 - GitHub: https://github.com/rwaldman/agentbits
-- Catalog version: 0.2.1
+- Catalog version: 0.3.0
 - Updated: 2026-08-12
 
 ## How to use
@@ -49,13 +49,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### base64_decode
 
 - Type: tool
-- Description: Decode a Base64 string into UTF-8 text, reporting invalid payloads as errors.
+- Description: Decode a Base64 string into UTF-8 text and report invalid payloads as errors when recovering embedded credentials, tokens, or transport-encoded content.
 - When to use: Use this tool when you need deterministic Base64 decoding.
-- Documentation: https://agentbits.dev/tools/base64_decode.md
+- use_when: Decode this Base64 string to UTF-8 text; Recover plain text from a Base64-encoded payload; Check whether a Base64 string is valid and decode it
+- do_not_use_when: Encode plain text to Base64 (use base64_encode); Decode percent-encoded URL components (use url_decode); Decrypt ciphertext—Base64 decoding is not decryption
+- Documentation: https://agentbits.dev/tools/base64-decode
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/base64/decode
 - MCP: https://agentbits.dev/mcp / base64_decode
+- Related: base64_encode, url_decode
 - Input schema:
 
 ```json
@@ -93,13 +96,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### base64_encode
 
 - Type: tool
-- Description: Encode a UTF-8 string into standard Base64.
+- Description: Convert a UTF-8 string into standard Base64 when you need a portable text encoding for credentials, binary-safe transport, or embedding data in JSON/HTTP fields.
 - When to use: Use this tool when you need deterministic Base64 encoding of text.
-- Documentation: https://agentbits.dev/tools/base64_encode.md
+- use_when: Encode this UTF-8 string as Base64; Convert plain text into standard Base64 for transport; Produce a Base64 representation of a credential or payload string
+- do_not_use_when: Decode Base64 back to text (use base64_decode); Percent-encode URL components (use url_encode); Hash or encrypt data for security—Base64 is encoding only
+- Documentation: https://agentbits.dev/tools/base64-encode
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/base64/encode
 - MCP: https://agentbits.dev/mcp / base64_encode
+- Related: base64_decode, url_encode
 - Input schema:
 
 ```json
@@ -139,22 +145,30 @@ Errors are machine-readable JSON objects with stable codes:
 - Type: dataset
 - Description: Versioned curated country metadata dataset used by country_lookup and countries_bulk.
 - When to use: Use when an agent needs ISO country metadata as a dataset rather than invoking a single lookup.
-- Documentation: https://agentbits.dev/datasets/countries.md
+- use_when: Download the full countries reference dataset; Need every ISO country record in one request
+- do_not_use_when: Look up a single country by ISO code (use country_lookup, free)
+- Documentation: https://agentbits.dev/datasets/countries
 - Version: 1
 - Pricing: paid 0.001 USDC/request via x402
+- Payment: protocol=x402; network=eip155:8453; currency=USDC; price=0.001; No account. No API key. No signup. Agents can pay programmatically via x402.
 - HTTP: GET https://agentbits.dev/v1/datasets/countries/v1.json
+- Related: country_lookup, countries_bulk
 - Limitations: Bulk download is paid. Single-country lookup via country_lookup remains free.
 
 ### countries_bulk
 
 - Type: tool
-- Description: Retrieve the full versioned countries dataset used by Agent Bits country lookups. Use when an agent needs bulk offline country metadata rather than a single country lookup.
+- Description: Download the complete versioned countries dataset as JSON for caching, offline use, or multi-country analysis when a single country_lookup call is not enough.
 - When to use: Use this tool when you need the complete countries dataset for a specific version (for caching, offline use, or multi-country analysis) instead of looking up one country code at a time.
-- Documentation: https://agentbits.dev/tools/countries_bulk.md
+- use_when: Download the full countries dataset as JSON; Cache the complete versioned countries snapshot for offline use; Analyze or filter many countries without repeated single-code lookups
+- do_not_use_when: Look up metadata for a single country by ISO code (use country_lookup instead); Look up one currency or language code (use currency_lookup / language_lookup); Fetch live geopolitical or exchange-rate feeds
+- Documentation: https://agentbits.dev/tools/countries-bulk
 - Version: 1
 - Pricing: paid 0.001 USDC/request via x402
+- Payment: protocol=x402; network=eip155:8453; currency=USDC; price=0.001; No account. No API key. No signup. Agents can pay programmatically via x402.
 - HTTP: GET https://agentbits.dev/v1/datasets/countries/v1.json
 - MCP: https://agentbits.dev/mcp / countries_bulk
+- Related: country_lookup, currency_lookup, language_lookup
 - Limitations: Paid capability. Unpaid requests receive HTTP 402 / payment challenge. Returns the curated Agent Bits countries dataset, not a live feed.
 - Input schema:
 
@@ -267,13 +281,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### country_lookup
 
 - Type: tool
-- Description: Look up metadata for an ISO 3166-1 alpha-2 country code. Use this when an agent needs a country's name, currency, language, calling code, region, or related standardized country metadata.
+- Description: Resolve an ISO 3166-1 alpha-2 country code (for example CA, US, JP) to official name, region, currency, calling code, languages, and related country metadata when you already have the two-letter code.
 - When to use: Use this tool when you need metadata for a country identified by an ISO 3166-1 alpha-2 code (for example CA, US, JP), including common name, official name, region, currency, calling code, or languages.
-- Documentation: https://agentbits.dev/tools/country_lookup.md
+- use_when: What currency and calling code does country code JP use?; Get official name, region, and languages for ISO country CA; Look up standardized metadata for a two-letter ISO 3166-1 country code
+- do_not_use_when: Download the full countries dataset for offline or multi-country use (use countries_bulk); Look up currency symbol or decimals by ISO 4217 code alone (use currency_lookup); Search for a country when you only know its English name and not the ISO code
+- Documentation: https://agentbits.dev/tools/country-lookup
 - Version: 1
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/countries/{code}
 - MCP: https://agentbits.dev/mcp / country_lookup
+- Related: countries_bulk, currency_lookup
 - Limitations: Accepts ISO 3166-1 alpha-2 codes only in v1. Dataset is a curated subset/versioned snapshot, not a live geopolitical feed.
 - Input schema:
 
@@ -360,7 +377,7 @@ Errors are machine-readable JSON objects with stable codes:
 - Type: dataset
 - Description: Curated currencies dataset (v1, 20 records) used by related lookup tools.
 - When to use: Use when an agent needs the currencies reference dataset or related lookup metadata.
-- Documentation: https://agentbits.dev/datasets/currencies.md
+- Documentation: https://agentbits.dev/datasets/currencies
 - Version: 1
 - Pricing: free
 - Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
@@ -368,13 +385,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### currency_lookup
 
 - Type: tool
-- Description: Look up currency metadata for an ISO 4217 code, including name, symbol, decimals, and related countries.
+- Description: Resolve an ISO 4217 currency code such as USD, EUR, or JPY to its name, symbol, decimal places, and which countries use it when you need currency metadata rather than a live exchange rate.
 - When to use: Use this tool when you need metadata for a currency code such as USD, EUR, or JPY.
-- Documentation: https://agentbits.dev/tools/currency_lookup.md
+- use_when: What is the symbol and number of decimal places for EUR?; Which countries use currency code JPY?; Get ISO 4217 name and metadata for USD
+- do_not_use_when: Convert amounts between currencies or fetch live FX rates; Find which currency a country uses when you only have a country code (use country_lookup); Validate payment-card-like numbers (use luhn_validate)
+- Documentation: https://agentbits.dev/tools/currency-lookup
 - Version: 1
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/currencies/{code}
 - MCP: https://agentbits.dev/mcp / currency_lookup
+- Related: country_lookup, luhn_validate
 - Input schema:
 
 ```json
@@ -438,13 +458,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### http_status_lookup
 
 - Type: tool
-- Description: Resolve a numeric HTTP status code to its standard name and a short description.
+- Description: Explain what a numeric HTTP status code such as 404 or 429 means by returning its standard reason phrase and a short description for debugging or API responses.
 - When to use: Use this tool when you need the meaning of an HTTP status code such as 404 or 429.
-- Documentation: https://agentbits.dev/tools/http_status_lookup.md
+- use_when: What does HTTP status 404 mean?; Get the standard name and description for status code 429; Explain an HTTP response code returned by an API
+- do_not_use_when: Decide whether a request succeeded without needing the status name; Look up MIME types or content-type headers (use mime_lookup); Diagnose TLS, DNS, or network failures that are not HTTP status codes
+- Documentation: https://agentbits.dev/tools/http-status-lookup
 - Version: 1
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/http-status/{code}
 - MCP: https://agentbits.dev/mcp / http_status_lookup
+- Related: mime_lookup
 - Input schema:
 
 ```json
@@ -493,13 +516,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### isbn_validate
 
 - Type: tool
-- Description: Validate ISBN-10/ISBN-13 identifiers using checksum rules and return normalized digits.
+- Description: Verify whether an ISBN-10 or ISBN-13 passes checksum rules and return normalized digits when checking book identifiers before catalog or purchase flows.
 - When to use: Use this tool when you need to determine whether an ISBN is checksum-valid.
-- Documentation: https://agentbits.dev/tools/isbn_validate.md
+- use_when: Is this ISBN valid?; Check the checksum for an ISBN-13 book identifier; Normalize and validate an ISBN-10 or ISBN-13 string
+- do_not_use_when: Look up book title, author, or cover metadata from an ISBN; Validate UUIDs (use uuid_validate) or payment-card Luhn numbers (use luhn_validate); Validate arbitrary barcode formats that are not ISBN-10/13
+- Documentation: https://agentbits.dev/tools/isbn-validate
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/isbn/validate
 - MCP: https://agentbits.dev/mcp / isbn_validate
+- Related: luhn_validate, uuid_validate
 - Input schema:
 
 ```json
@@ -563,13 +589,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### json_validate
 
 - Type: tool
-- Description: Parse and validate a JSON string, returning whether it is valid and a normalized form when possible.
+- Description: Parse a string as JSON to confirm it is well-formed and return a normalized representation when possible before further processing or storage.
 - When to use: Use this tool when you need to verify that text is valid JSON before further processing.
-- Documentation: https://agentbits.dev/tools/json_validate.md
+- use_when: Is this string valid JSON?; Parse and normalize a JSON payload before processing; Check whether agent or user-supplied text is well-formed JSON
+- do_not_use_when: Validate against a specific JSON Schema or OpenAPI model beyond well-formedness; Encode or decode Base64 (use base64_encode / base64_decode); Validate UUID or ISBN identifier formats
+- Documentation: https://agentbits.dev/tools/json-validate
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/json/validate
 - MCP: https://agentbits.dev/mcp / json_validate
+- Related: base64_decode, base64_encode
 - Input schema:
 
 ```json
@@ -628,13 +657,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### language_lookup
 
 - Type: tool
-- Description: Look up language name and native name for an ISO 639-1 code.
+- Description: Resolve an ISO 639-1 language code such as en, fr, or ja to its English name and native name when you need language metadata from a two-letter code.
 - When to use: Use this tool when you need metadata for a language code such as en, fr, or ja.
-- Documentation: https://agentbits.dev/tools/language_lookup.md
+- use_when: What language does ISO 639-1 code ja refer to?; Get the native name for language code fr; Resolve a two-letter language code to its English and native names
+- do_not_use_when: Translate text between languages; Detect the language of arbitrary free-form text; Look up country languages from a country code (use country_lookup)
+- Documentation: https://agentbits.dev/tools/language-lookup
 - Version: 1
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/languages/{code}
 - MCP: https://agentbits.dev/mcp / language_lookup
+- Related: country_lookup
 - Input schema:
 
 ```json
@@ -687,7 +719,7 @@ Errors are machine-readable JSON objects with stable codes:
 - Type: dataset
 - Description: Curated languages dataset (v1, 20 records) used by related lookup tools.
 - When to use: Use when an agent needs the languages reference dataset or related lookup metadata.
-- Documentation: https://agentbits.dev/datasets/languages.md
+- Documentation: https://agentbits.dev/datasets/languages
 - Version: 1
 - Pricing: free
 - Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
@@ -695,13 +727,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### luhn_validate
 
 - Type: tool
-- Description: Validate identifiers such as payment-card-like numbers using the Luhn algorithm.
+- Description: Run the Luhn checksum on a numeric string such as a payment-card-like identifier to verify the check digit before accepting or storing the value.
 - When to use: Use this tool when you need to verify a number with a Luhn check digit.
-- Documentation: https://agentbits.dev/tools/luhn_validate.md
+- use_when: Does this number pass a Luhn check?; Validate a payment-card-like identifier checksum; Verify a numeric ID that uses a Luhn check digit
+- do_not_use_when: Charge a card, tokenize payments, or call a payment processor; Validate ISBNs (use isbn_validate) or UUIDs (use uuid_validate); Look up currency metadata (use currency_lookup)
+- Documentation: https://agentbits.dev/tools/luhn-validate
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/luhn/validate
 - MCP: https://agentbits.dev/mcp / luhn_validate
+- Related: currency_lookup, isbn_validate, uuid_validate
 - Input schema:
 
 ```json
@@ -750,13 +785,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### mime_lookup
 
 - Type: tool
-- Description: Resolve a file extension or MIME type to curated MIME metadata.
+- Description: Map a file extension such as webp or png, or a MIME type string, to curated Content-Type metadata when setting headers, validating uploads, or choosing a media type.
 - When to use: Use this tool when you need the MIME type for a file extension such as webp, or metadata for a MIME type string.
-- Documentation: https://agentbits.dev/tools/mime_lookup.md
+- use_when: What MIME type should I use for a .webp file?; Look up metadata for Content-Type application/json; Resolve a file extension to the correct MIME type for an upload or response header
+- do_not_use_when: Sniff or detect MIME type from raw file bytes; Encode or decode Base64 file payloads (use base64_encode / base64_decode); Look up DNS top-level domain metadata (use tld_lookup)
+- Documentation: https://agentbits.dev/tools/mime-lookup
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/mime/lookup
 - MCP: https://agentbits.dev/mcp / mime_lookup
+- Related: base64_decode, base64_encode, tld_lookup
 - Input schema:
 
 ```json
@@ -808,7 +846,7 @@ Errors are machine-readable JSON objects with stable codes:
 - Type: dataset
 - Description: Curated mime-types dataset (v1, 20 records) used by related lookup tools.
 - When to use: Use when an agent needs the mime-types reference dataset or related lookup metadata.
-- Documentation: https://agentbits.dev/datasets/mime-types.md
+- Documentation: https://agentbits.dev/datasets/mime-types
 - Version: 1
 - Pricing: free
 - Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
@@ -816,13 +854,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### timestamp_convert
 
 - Type: tool
-- Description: Convert Unix epoch seconds/milliseconds to ISO-8601, or ISO-8601 to Unix epoch values.
+- Description: Convert Unix epoch seconds or milliseconds to ISO-8601, or an ISO-8601 datetime to Unix epoch values, when bridging APIs that disagree on time formats.
 - When to use: Use this tool when you need deterministic conversion between Unix timestamps and ISO-8601 datetimes.
-- Documentation: https://agentbits.dev/tools/timestamp_convert.md
+- use_when: Convert this Unix timestamp to ISO-8601; Turn an ISO-8601 datetime into epoch milliseconds; Bridge APIs that mix Unix seconds and ISO-8601 strings
+- do_not_use_when: Convert a datetime between IANA timezones while preserving the instant (use timezone_convert); Convert length, mass, or temperature units (use unit_convert); Interpret relative phrases like 'next Tuesday' or 'in 3 hours'
+- Documentation: https://agentbits.dev/tools/timestamp-convert
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/timestamp/convert
 - MCP: https://agentbits.dev/mcp / timestamp_convert
+- Related: timezone_convert, unit_convert
 - Input schema:
 
 ```json
@@ -882,13 +923,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### timezone_convert
 
 - Type: tool
-- Description: Convert an ISO-8601 datetime from one IANA timezone to another, preserving the instant.
+- Description: Convert an ISO-8601 datetime from one IANA timezone to another while preserving the same instant, including daylight-saving-aware wall times such as Toronto to Tokyo.
 - When to use: Use this tool when you need to convert a datetime between IANA timezones, including daylight-saving-time-aware conversions.
-- Documentation: https://agentbits.dev/tools/timezone_convert.md
+- use_when: What time is 3pm Toronto in Tokyo?; Convert an ISO-8601 datetime from America/New_York to Europe/London; Show the same instant in another IANA timezone with DST-aware offsets
+- do_not_use_when: Only convert between Unix epoch and ISO-8601 without changing timezone (use timestamp_convert); Convert length, mass, or temperature units (use unit_convert); Guess a city timezone from a postal address without an IANA zone id
+- Documentation: https://agentbits.dev/tools/timezone-convert
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/timezone/convert
 - MCP: https://agentbits.dev/mcp / timezone_convert
+- Related: timestamp_convert, unit_convert
 - Limitations: Relies on the runtime IANA timezone database via Intl.
 - Input schema:
 
@@ -973,7 +1017,7 @@ Errors are machine-readable JSON objects with stable codes:
 - Type: dataset
 - Description: Curated timezones dataset (v1, 17 records) used by related lookup tools.
 - When to use: Use when an agent needs the timezones reference dataset or related lookup metadata.
-- Documentation: https://agentbits.dev/datasets/timezones.md
+- Documentation: https://agentbits.dev/datasets/timezones
 - Version: 1
 - Pricing: free
 - Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
@@ -981,13 +1025,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### tld_lookup
 
 - Type: tool
-- Description: Look up curated metadata for a DNS top-level domain such as com, io, or ai.
+- Description: Identify what a DNS top-level domain such as com, io, or ai is classified as and commonly used for when classifying domains or answering TLD questions.
 - When to use: Use this tool when you need to understand what a TLD is classified as or commonly used for.
-- Documentation: https://agentbits.dev/tools/tld_lookup.md
+- use_when: What kind of TLD is .io?; Is .ai a country-code or generic top-level domain?; Get curated metadata for DNS TLD com
+- do_not_use_when: Check whether a full domain name is registered or available; Resolve DNS records or WHOIS ownership; Look up MIME types for file extensions (use mime_lookup)
+- Documentation: https://agentbits.dev/tools/tld-lookup
 - Version: 1
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/tlds/{tld}
 - MCP: https://agentbits.dev/mcp / tld_lookup
+- Related: mime_lookup
 - Input schema:
 
 ```json
@@ -1033,13 +1080,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### unit_convert
 
 - Type: tool
-- Description: Convert numeric values between supported units for length, mass, and temperature.
+- Description: Convert a numeric value between supported length, mass, or temperature units—for example miles to kilometers or Celsius to Fahrenheit—when you need a deterministic unit conversion.
 - When to use: Use this tool when you need deterministic unit conversion such as miles to kilometers or Celsius to Fahrenheit.
-- Documentation: https://agentbits.dev/tools/unit_convert.md
+- use_when: Convert 10 miles to kilometers; What is 25°C in Fahrenheit?; Convert a mass value between kilograms and pounds
+- do_not_use_when: Convert currencies or fetch exchange rates (use currency_lookup for metadata only); Convert timestamps or timezones (use timestamp_convert / timezone_convert); Convert unsupported unit categories outside length, mass, and temperature
+- Documentation: https://agentbits.dev/tools/unit-convert
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/unit/convert
 - MCP: https://agentbits.dev/mcp / unit_convert
+- Related: currency_lookup, timestamp_convert, timezone_convert
 - Limitations: Supports a curated set of length, mass, and temperature units in v1.
 - Input schema:
 
@@ -1093,13 +1143,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### url_decode
 
 - Type: tool
-- Description: Decode a percent-encoded URL component into plain text.
+- Description: Decode a percent-encoded URL component into plain text when reading query parameters, path segments, or form values that contain escaped characters.
 - When to use: Use this tool when you need deterministic URL component decoding.
-- Documentation: https://agentbits.dev/tools/url_decode.md
+- use_when: Decode this percent-encoded URL component; Convert %20-style escapes back to plain text; Recover the original string from an encoded query parameter
+- do_not_use_when: Percent-encode text for a URL (use url_encode); Decode Base64 payloads (use base64_decode); Parse HTML entities that are not URL percent-encoding
+- Documentation: https://agentbits.dev/tools/url-decode
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/url/decode
 - MCP: https://agentbits.dev/mcp / url_decode
+- Related: base64_decode, url_encode
 - Input schema:
 
 ```json
@@ -1136,13 +1189,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### url_encode
 
 - Type: tool
-- Description: Apply encodeURIComponent-style percent-encoding to a string.
+- Description: Apply encodeURIComponent-style percent-encoding so query parameters, path segments, or form values are safe to place in a URL.
 - When to use: Use this tool when you need deterministic URL component encoding.
-- Documentation: https://agentbits.dev/tools/url_encode.md
+- use_when: Percent-encode this string for a query parameter; Make a path segment URL-safe with encodeURIComponent-style encoding; Encode special characters before inserting text into a URL
+- do_not_use_when: Decode a percent-encoded string (use url_decode); Encode binary data as Base64 (use base64_encode); Build or rewrite a full absolute URL structure beyond component encoding
+- Documentation: https://agentbits.dev/tools/url-encode
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/url/encode
 - MCP: https://agentbits.dev/mcp / url_encode
+- Related: base64_encode, url_decode
 - Input schema:
 
 ```json
@@ -1179,13 +1235,16 @@ Errors are machine-readable JSON objects with stable codes:
 ### uuid_validate
 
 - Type: tool
-- Description: Validate whether a string is a UUID and identify UUID version/variant metadata when possible.
+- Description: Check whether a string is a well-formed UUID and, when recognizable, report its version and variant so you can accept or reject identifier inputs confidently.
 - When to use: Use this tool when you need to check if a value is a valid UUID, including common version 4 identifiers.
-- Documentation: https://agentbits.dev/tools/uuid_validate.md
+- use_when: Is this string a valid UUID?; What version and variant is this UUID?; Validate a UUID before using it as a primary key or request id
+- do_not_use_when: Generate a new UUID; Validate ISBNs or other non-UUID identifiers (use isbn_validate); Validate JSON structure (use json_validate)
+- Documentation: https://agentbits.dev/tools/uuid-validate
 - Version: 1
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/uuid/validate
 - MCP: https://agentbits.dev/mcp / uuid_validate
+- Related: isbn_validate, json_validate
 - Input schema:
 
 ```json
