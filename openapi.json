@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Agent Bits",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Small, reliable utilities and datasets for AI agents.",
     "contact": {
       "url": "https://agentbits.dev"
@@ -56,7 +56,43 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "decoded": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "decoded"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Base64 text to decode"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -70,7 +106,43 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "encoded": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "encoded"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Text to encode"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -84,12 +156,113 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "dataset": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "string"
+                    },
+                    "generated": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "code3": {
+                            "type": "string"
+                          },
+                          "numeric": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "official_name": {
+                            "type": "string"
+                          },
+                          "region": {
+                            "type": "string"
+                          },
+                          "subregion": {
+                            "type": "string"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "calling_code": {
+                            "type": "string"
+                          },
+                          "languages": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "code3",
+                          "numeric",
+                          "name",
+                          "official_name",
+                          "region",
+                          "subregion",
+                          "currency",
+                          "calling_code",
+                          "languages"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "dataset",
+                    "version",
+                    "revision",
+                    "generated",
+                    "count",
+                    "records"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           },
           "402": {
             "description": "Payment required"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "default": "1",
+              "description": "Dataset version to retrieve. Defaults to 1.",
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/v1/countries/{code}": {
@@ -101,9 +274,82 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "code3": {
+                      "type": "string"
+                    },
+                    "numeric": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "official_name": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "string"
+                    },
+                    "subregion": {
+                      "type": "string"
+                    },
+                    "currency": {
+                      "type": "string"
+                    },
+                    "calling_code": {
+                      "type": "string"
+                    },
+                    "languages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "dataset_version": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "code3",
+                    "numeric",
+                    "name",
+                    "official_name",
+                    "region",
+                    "subregion",
+                    "currency",
+                    "calling_code",
+                    "languages",
+                    "dataset_version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2,
+              "pattern": "^[A-Za-z]{2}$",
+              "description": "ISO 3166-1 alpha-2 country code, for example CA or JP"
+            }
+          }
+        ]
       }
     },
     "/v1/currencies/{code}": {
@@ -115,9 +361,62 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "symbol": {
+                      "type": "string"
+                    },
+                    "decimals": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "countries": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "dataset_version": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "name",
+                    "symbol",
+                    "decimals",
+                    "countries",
+                    "dataset_version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3
+            }
+          }
+        ]
       }
     },
     "/v1/http-status/{code}": {
@@ -129,9 +428,47 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "name",
+                    "description"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 599
+            }
+          }
+        ]
       }
     },
     "/v1/isbn/validate": {
@@ -143,7 +480,69 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "isbn10",
+                            "isbn13"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "normalized": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "valid",
+                    "type",
+                    "normalized"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "ISBN-10 or ISBN-13 candidate"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -157,7 +556,64 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "normalized": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "error": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "valid",
+                    "normalized",
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -171,9 +627,49 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "native_name": {
+                      "type": "string"
+                    },
+                    "dataset_version": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "name",
+                    "native_name",
+                    "dataset_version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 3
+            }
+          }
+        ]
       }
     },
     "/v1/luhn/validate": {
@@ -185,7 +681,54 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "normalized": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "valid",
+                    "normalized"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Numeric string to validate with Luhn"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -199,7 +742,55 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "extension": {
+                      "type": "string"
+                    },
+                    "mime": {
+                      "type": "string"
+                    },
+                    "compressible": {
+                      "type": "boolean"
+                    },
+                    "dataset_version": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "extension",
+                    "mime",
+                    "compressible",
+                    "dataset_version"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -213,7 +804,65 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "iso": {
+                      "type": "string"
+                    },
+                    "unix_seconds": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "unix_milliseconds": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "iso",
+                    "unix_seconds",
+                    "unix_milliseconds"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Unix timestamp or ISO-8601 datetime"
+                  },
+                  "input_format": {
+                    "type": "string",
+                    "enum": [
+                      "unix_seconds",
+                      "unix_milliseconds",
+                      "iso8601"
+                    ],
+                    "description": "Format of value"
+                  }
+                },
+                "required": [
+                  "value",
+                  "input_format"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -227,7 +876,87 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "source": {
+                      "type": "object",
+                      "properties": {
+                        "datetime": {
+                          "type": "string"
+                        },
+                        "timezone": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "datetime",
+                        "timezone"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "target": {
+                      "type": "object",
+                      "properties": {
+                        "datetime": {
+                          "type": "string"
+                        },
+                        "timezone": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "datetime",
+                        "timezone"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "utc": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "source",
+                    "target",
+                    "utc"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "datetime": {
+                    "type": "string",
+                    "description": "ISO-8601 datetime, with or without offset"
+                  },
+                  "from_timezone": {
+                    "type": "string",
+                    "description": "IANA timezone for interpreting naive datetimes"
+                  },
+                  "to_timezone": {
+                    "type": "string",
+                    "description": "IANA timezone for output"
+                  }
+                },
+                "required": [
+                  "datetime",
+                  "from_timezone",
+                  "to_timezone"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -241,9 +970,44 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tld": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "tld",
+                    "type",
+                    "description"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "tld",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        ]
       }
     },
     "/v1/unit/convert": {
@@ -255,7 +1019,58 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "from_unit": {
+                      "type": "string"
+                    },
+                    "to_unit": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "from_unit",
+                    "to_unit"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "from_unit": {
+                    "type": "string"
+                  },
+                  "to_unit": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value",
+                  "from_unit",
+                  "to_unit"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -269,7 +1084,42 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "decoded": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "decoded"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -283,7 +1133,42 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "encoded": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "encoded"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }
@@ -297,7 +1182,78 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful capability response"
+            "description": "Successful capability response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {
+                      "type": "boolean"
+                    },
+                    "version": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "variant": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "normalized": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "valid",
+                    "version",
+                    "variant",
+                    "normalized"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "UUID candidate string"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
           }
         }
       }

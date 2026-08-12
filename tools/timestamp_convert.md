@@ -12,11 +12,60 @@ Use this tool when you need deterministic conversion between Unix timestamps and
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Unix timestamp or ISO-8601 datetime"
+    },
+    "input_format": {
+      "type": "string",
+      "enum": [
+        "unix_seconds",
+        "unix_milliseconds",
+        "iso8601"
+      ],
+      "description": "Format of value"
+    }
+  },
+  "required": [
+    "value",
+    "input_format"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "iso": {
+      "type": "string"
+    },
+    "unix_seconds": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "unix_milliseconds": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "iso",
+    "unix_seconds",
+    "unix_milliseconds"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

@@ -12,11 +12,49 @@ Use this tool when you need to verify a number with a Luhn check digit.
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Numeric string to validate with Luhn"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "normalized": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "valid",
+    "normalized"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

@@ -12,11 +12,64 @@ Use this tool when you need to determine whether an ISBN is checksum-valid.
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "ISBN-10 or ISBN-13 candidate"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "isbn10",
+            "isbn13"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "normalized": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "valid",
+    "type",
+    "normalized"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

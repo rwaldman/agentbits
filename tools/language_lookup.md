@@ -12,11 +12,51 @@ Use this tool when you need metadata for a language code such as en, fr, or ja.
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 3
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "native_name": {
+      "type": "string"
+    },
+    "dataset_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "native_name",
+    "dataset_version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

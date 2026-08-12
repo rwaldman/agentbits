@@ -12,11 +12,38 @@ Use this tool when you need deterministic Base64 encoding of text.
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Text to encode"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "encoded": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "encoded"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

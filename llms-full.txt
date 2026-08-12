@@ -9,7 +9,7 @@ Small, reliable utilities and datasets for AI agents.
 - MCP: https://agentbits.dev/mcp
 - API: https://agentbits.dev/api
 - GitHub: https://github.com/rwaldman/agentbits
-- Catalog version: 0.2.0
+- Catalog version: 0.2.1
 - Updated: 2026-08-12
 
 ## How to use
@@ -56,6 +56,39 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/base64/decode
 - MCP: https://agentbits.dev/mcp / base64_decode
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Base64 text to decode"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "decoded": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "decoded"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### base64_encode
 
@@ -67,6 +100,39 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/base64/encode
 - MCP: https://agentbits.dev/mcp / base64_encode
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Text to encode"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "encoded": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "encoded"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### countries
 
@@ -90,6 +156,113 @@ Errors are machine-readable JSON objects with stable codes:
 - HTTP: GET https://agentbits.dev/v1/datasets/countries/v1.json
 - MCP: https://agentbits.dev/mcp / countries_bulk
 - Limitations: Paid capability. Unpaid requests receive HTTP 402 / payment challenge. Returns the curated Agent Bits countries dataset, not a live feed.
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "default": "1",
+      "description": "Dataset version to retrieve. Defaults to 1.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "dataset": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "generated": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "code3": {
+            "type": "string"
+          },
+          "numeric": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "official_name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "subregion": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "calling_code": {
+            "type": "string"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "code3",
+          "numeric",
+          "name",
+          "official_name",
+          "region",
+          "subregion",
+          "currency",
+          "calling_code",
+          "languages"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "dataset",
+    "version",
+    "revision",
+    "generated",
+    "count",
+    "records"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### country_lookup
 
@@ -102,6 +275,85 @@ Errors are machine-readable JSON objects with stable codes:
 - HTTP: GET https://agentbits.dev/v1/countries/{code}
 - MCP: https://agentbits.dev/mcp / country_lookup
 - Limitations: Accepts ISO 3166-1 alpha-2 codes only in v1. Dataset is a curated subset/versioned snapshot, not a live geopolitical feed.
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2,
+      "pattern": "^[A-Za-z]{2}$",
+      "description": "ISO 3166-1 alpha-2 country code, for example CA or JP"
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "code3": {
+      "type": "string"
+    },
+    "numeric": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "official_name": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "subregion": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "calling_code": {
+      "type": "string"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dataset_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "code3",
+    "numeric",
+    "name",
+    "official_name",
+    "region",
+    "subregion",
+    "currency",
+    "calling_code",
+    "languages",
+    "dataset_version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### currencies
 
@@ -123,6 +375,65 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/currencies/{code}
 - MCP: https://agentbits.dev/mcp / currency_lookup
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "decimals": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "countries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dataset_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "symbol",
+    "decimals",
+    "countries",
+    "dataset_version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### http_status_lookup
 
@@ -134,6 +445,50 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/http-status/{code}
 - MCP: https://agentbits.dev/mcp / http_status_lookup
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 599
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "description"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### isbn_validate
 
@@ -145,6 +500,65 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/isbn/validate
 - MCP: https://agentbits.dev/mcp / isbn_validate
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "ISBN-10 or ISBN-13 candidate"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "isbn10",
+            "isbn13"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "normalized": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "valid",
+    "type",
+    "normalized"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### json_validate
 
@@ -156,6 +570,60 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/json/validate
 - MCP: https://agentbits.dev/mcp / json_validate
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "normalized": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "valid",
+    "normalized",
+    "error"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### language_lookup
 
@@ -167,6 +635,52 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/languages/{code}
 - MCP: https://agentbits.dev/mcp / language_lookup
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 3
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "native_name": {
+      "type": "string"
+    },
+    "dataset_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "native_name",
+    "dataset_version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### languages
 
@@ -188,6 +702,50 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/luhn/validate
 - MCP: https://agentbits.dev/mcp / luhn_validate
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Numeric string to validate with Luhn"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "normalized": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "valid",
+    "normalized"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### mime_lookup
 
@@ -199,6 +757,51 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/mime/lookup
 - MCP: https://agentbits.dev/mcp / mime_lookup
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "extension": {
+      "type": "string"
+    },
+    "mime": {
+      "type": "string"
+    },
+    "compressible": {
+      "type": "boolean"
+    },
+    "dataset_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "extension",
+    "mime",
+    "compressible",
+    "dataset_version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### mime-types
 
@@ -220,6 +823,61 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/timestamp/convert
 - MCP: https://agentbits.dev/mcp / timestamp_convert
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "Unix timestamp or ISO-8601 datetime"
+    },
+    "input_format": {
+      "type": "string",
+      "enum": [
+        "unix_seconds",
+        "unix_milliseconds",
+        "iso8601"
+      ],
+      "description": "Format of value"
+    }
+  },
+  "required": [
+    "value",
+    "input_format"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "iso": {
+      "type": "string"
+    },
+    "unix_seconds": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "unix_milliseconds": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "iso",
+    "unix_seconds",
+    "unix_milliseconds"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### timezone_convert
 
@@ -232,6 +890,83 @@ Errors are machine-readable JSON objects with stable codes:
 - HTTP: POST https://agentbits.dev/v1/timezone/convert
 - MCP: https://agentbits.dev/mcp / timezone_convert
 - Limitations: Relies on the runtime IANA timezone database via Intl.
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "datetime": {
+      "type": "string",
+      "description": "ISO-8601 datetime, with or without offset"
+    },
+    "from_timezone": {
+      "type": "string",
+      "description": "IANA timezone for interpreting naive datetimes"
+    },
+    "to_timezone": {
+      "type": "string",
+      "description": "IANA timezone for output"
+    }
+  },
+  "required": [
+    "datetime",
+    "from_timezone",
+    "to_timezone"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "datetime": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "datetime",
+        "timezone"
+      ],
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "datetime": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "datetime",
+        "timezone"
+      ],
+      "additionalProperties": false
+    },
+    "utc": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "source",
+    "target",
+    "utc"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### timezones
 
@@ -253,6 +988,47 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: GET https://agentbits.dev/v1/tlds/{tld}
 - MCP: https://agentbits.dev/mcp / tld_lookup
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "tld": {
+      "type": "string",
+      "minLength": 2
+    }
+  },
+  "required": [
+    "tld"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "tld": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tld",
+    "type",
+    "description"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### unit_convert
 
@@ -265,6 +1041,54 @@ Errors are machine-readable JSON objects with stable codes:
 - HTTP: POST https://agentbits.dev/v1/unit/convert
 - MCP: https://agentbits.dev/mcp / unit_convert
 - Limitations: Supports a curated set of length, mass, and temperature units in v1.
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "number"
+    },
+    "from_unit": {
+      "type": "string"
+    },
+    "to_unit": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value",
+    "from_unit",
+    "to_unit"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "number"
+    },
+    "from_unit": {
+      "type": "string"
+    },
+    "to_unit": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value",
+    "from_unit",
+    "to_unit"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### url_decode
 
@@ -276,6 +1100,38 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/url/decode
 - MCP: https://agentbits.dev/mcp / url_decode
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "decoded": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "decoded"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### url_encode
 
@@ -287,6 +1143,38 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/url/encode
 - MCP: https://agentbits.dev/mcp / url_encode
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "encoded": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "encoded"
+  ],
+  "additionalProperties": false
+}
+```
 
 ### uuid_validate
 
@@ -298,6 +1186,74 @@ Errors are machine-readable JSON objects with stable codes:
 - Pricing: free
 - HTTP: POST https://agentbits.dev/v1/uuid/validate
 - MCP: https://agentbits.dev/mcp / uuid_validate
+- Input schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "UUID candidate string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
+- Output schema:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean"
+    },
+    "version": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "variant": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "normalized": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "valid",
+    "version",
+    "variant",
+    "normalized"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Limitations
 

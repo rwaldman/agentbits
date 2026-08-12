@@ -12,11 +12,53 @@ Use this tool when you need deterministic unit conversion such as miles to kilom
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "number"
+    },
+    "from_unit": {
+      "type": "string"
+    },
+    "to_unit": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value",
+    "from_unit",
+    "to_unit"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "number"
+    },
+    "from_unit": {
+      "type": "string"
+    },
+    "to_unit": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value",
+    "from_unit",
+    "to_unit"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 
