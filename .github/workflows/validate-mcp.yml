@@ -1,0 +1,28 @@
+name: Validate MCP server.json
+
+on:
+  pull_request:
+    paths:
+      - "server.json"
+      - ".github/workflows/validate-mcp.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "server.json"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install mcp-publisher
+        run: |
+          curl -fsSL \
+            "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" \
+            | tar xz mcp-publisher
+          sudo mv mcp-publisher /usr/local/bin/
+      - run: mcp-publisher validate

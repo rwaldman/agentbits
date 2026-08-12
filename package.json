@@ -1,0 +1,24 @@
+{
+  "name": "agentbits",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Machine-readable utilities and datasets for AI agents. MCP + HTTP + x402.",
+  "homepage": "https://agentbits.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rwaldman/agentbits.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rwaldman/agentbits/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "ai-agents",
+    "agent-tools",
+    "x402",
+    "cloudflare-workers"
+  ],
+  "mcpName": "io.github.rwaldman/agentbits"
+}
