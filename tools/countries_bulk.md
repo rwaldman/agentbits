@@ -33,7 +33,7 @@ Tool: `countries_bulk`
 
 ## Pricing
 
-0.001 USDC per request via x402 on eip155:84532
+0.001 USDC per request via x402 on eip155:8453
 
 ## Examples
 
