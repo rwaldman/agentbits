@@ -40,4 +40,4 @@ If payment verification succeeds but capability execution fails, Agent Bits retu
 
 ## Status
 
-Paid access uses protocol adapters. Development/testing may use a mock adapter on test networks. Production x402 recipient/facilitator configuration is operator-managed.
+Paid access uses protocol adapters. Unpaid requests receive a machine-readable payment challenge. When payment is configured for production, Agent Bits verifies and settles through an x402 facilitator and returns receipt metadata on success. Development/testing may use a mock adapter on test networks. Production recipient/facilitator configuration is operator-managed.

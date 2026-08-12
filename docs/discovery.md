@@ -34,4 +34,4 @@ This page explains how agents and developers can discover Agent Bits.
 
 ## Status
 
-Discovery scaffolding is published. Capability entries will populate as the hosted service launches features.
+Discovery artifacts are published for the current hosted capability catalog. Prefer `catalog.json` plus per-capability pages when selecting tools and datasets.
