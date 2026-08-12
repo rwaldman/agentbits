@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.rwaldman/agentbits",
+  "title": "Agent Bits",
+  "description": "Machine-readable utilities and datasets for AI agents.",
+  "version": "0.3.0",
+  "websiteUrl": "https://agentbits.dev",
+  "repository": {
+    "url": "https://github.com/rwaldman/agentbits",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://agentbits.dev/mcp"
+    }
+  ]
+}

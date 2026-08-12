@@ -19,6 +19,12 @@ Machine-readable utilities and datasets for AI agents.
 Connect an MCP-compatible client to `https://agentbits.dev/mcp`.
 Tool names and input schemas match the HTTP capability contracts.
 
+### MCP registries
+
+- Official registry manifest: https://agentbits.dev/server.json
+- Server card: https://agentbits.dev/.well-known/mcp/server-card.json
+- Directory checklist: https://agentbits.dev/docs/mcp-registries.md
+
 ### HTTP
 
 JSON-first HTTP API under `https://agentbits.dev/api` and versioned paths under `/v1`.

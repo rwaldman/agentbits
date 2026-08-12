@@ -1,0 +1,375 @@
+{
+  "serverInfo": {
+    "name": "Agent Bits",
+    "version": "0.3.0",
+    "title": "Agent Bits",
+    "websiteUrl": "https://agentbits.dev",
+    "description": "Machine-readable utilities and datasets for AI agents."
+  },
+  "authentication": {
+    "required": false,
+    "schemes": []
+  },
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://agentbits.dev/mcp"
+  },
+  "payments": {
+    "protocol": "x402",
+    "notes": "Some tools are free. Paid tools (for example countries_bulk) use x402 USDC on Base. No account. No API key. No signup."
+  },
+  "install": {
+    "mcpServers": {
+      "agentbits": {
+        "url": "https://agentbits.dev/mcp"
+      }
+    }
+  },
+  "registry": {
+    "official": "io.github.rwaldman/agentbits",
+    "github": "https://github.com/rwaldman/agentbits",
+    "catalog": "https://agentbits.dev/catalog.json",
+    "for_agents": "https://agentbits.dev/for-agents"
+  },
+  "tools": [
+    {
+      "name": "base64_decode",
+      "description": "Decode a Base64 string into UTF-8 text and report invalid payloads as errors when recovering embedded credentials, tokens, or transport-encoded content.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Base64 text to decode"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "base64_encode",
+      "description": "Convert a UTF-8 string into standard Base64 when you need a portable text encoding for credentials, binary-safe transport, or embedding data in JSON/HTTP fields.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Text to encode"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "countries_bulk",
+      "description": "Download the complete versioned countries dataset as JSON for caching, offline use, or multi-country analysis when a single country_lookup call is not enough.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "default": "1",
+            "description": "Dataset version to retrieve. Defaults to 1.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "country_lookup",
+      "description": "Resolve an ISO 3166-1 alpha-2 country code (for example CA, US, JP) to official name, region, currency, calling code, languages, and related country metadata when you already have the two-letter code.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "pattern": "^[A-Za-z]{2}$",
+            "description": "ISO 3166-1 alpha-2 country code, for example CA or JP"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "currency_lookup",
+      "description": "Resolve an ISO 4217 currency code such as USD, EUR, or JPY to its name, symbol, decimal places, and which countries use it when you need currency metadata rather than a live exchange rate.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "http_status_lookup",
+      "description": "Explain what a numeric HTTP status code such as 404 or 429 means by returning its standard reason phrase and a short description for debugging or API responses.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 599
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "isbn_validate",
+      "description": "Verify whether an ISBN-10 or ISBN-13 passes checksum rules and return normalized digits when checking book identifiers before catalog or purchase flows.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "ISBN-10 or ISBN-13 candidate"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "json_validate",
+      "description": "Parse a string as JSON to confirm it is well-formed and return a normalized representation when possible before further processing or storage.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "language_lookup",
+      "description": "Resolve an ISO 639-1 language code such as en, fr, or ja to its English name and native name when you need language metadata from a two-letter code.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 3
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "luhn_validate",
+      "description": "Run the Luhn checksum on a numeric string such as a payment-card-like identifier to verify the check digit before accepting or storing the value.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Numeric string to validate with Luhn"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mime_lookup",
+      "description": "Map a file extension such as webp or png, or a MIME type string, to curated Content-Type metadata when setting headers, validating uploads, or choosing a media type.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "timestamp_convert",
+      "description": "Convert Unix epoch seconds or milliseconds to ISO-8601, or an ISO-8601 datetime to Unix epoch values, when bridging APIs that disagree on time formats.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Unix timestamp or ISO-8601 datetime"
+          },
+          "input_format": {
+            "type": "string",
+            "enum": [
+              "unix_seconds",
+              "unix_milliseconds",
+              "iso8601"
+            ],
+            "description": "Format of value"
+          }
+        },
+        "required": [
+          "value",
+          "input_format"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "timezone_convert",
+      "description": "Convert an ISO-8601 datetime from one IANA timezone to another while preserving the same instant, including daylight-saving-aware wall times such as Toronto to Tokyo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "datetime": {
+            "type": "string",
+            "description": "ISO-8601 datetime, with or without offset"
+          },
+          "from_timezone": {
+            "type": "string",
+            "description": "IANA timezone for interpreting naive datetimes"
+          },
+          "to_timezone": {
+            "type": "string",
+            "description": "IANA timezone for output"
+          }
+        },
+        "required": [
+          "datetime",
+          "from_timezone",
+          "to_timezone"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "tld_lookup",
+      "description": "Identify what a DNS top-level domain such as com, io, or ai is classified as and commonly used for when classifying domains or answering TLD questions.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tld": {
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        "required": [
+          "tld"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "unit_convert",
+      "description": "Convert a numeric value between supported length, mass, or temperature units—for example miles to kilometers or Celsius to Fahrenheit—when you need a deterministic unit conversion.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "from_unit": {
+            "type": "string"
+          },
+          "to_unit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "from_unit",
+          "to_unit"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "url_decode",
+      "description": "Decode a percent-encoded URL component into plain text when reading query parameters, path segments, or form values that contain escaped characters.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "url_encode",
+      "description": "Apply encodeURIComponent-style percent-encoding so query parameters, path segments, or form values are safe to place in a URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "uuid_validate",
+      "description": "Check whether a string is a well-formed UUID and, when recognizable, report its version and variant so you can accept or reject identifier inputs confidently.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "UUID candidate string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}

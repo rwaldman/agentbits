@@ -95,3 +95,12 @@ See [`payments.md`](./payments.md) and https://agentbits.dev/for-agents.
 ## Status
 
 MCP is available at `https://agentbits.dev/mcp` for published tools.
+
+## Registries / directories
+
+See [`mcp-registries.md`](./mcp-registries.md) for Official MCP Registry (`server.json`), Smithery, Glama, MCP.so, PulseMCP, awesome-mcp-servers, and GitHub ecosystem steps.
+
+Live manifests:
+
+- https://agentbits.dev/server.json
+- https://agentbits.dev/.well-known/mcp/server-card.json

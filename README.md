@@ -2,10 +2,13 @@
 
 Machine-readable utilities and datasets for AI agents.
 
+<!-- mcp-name: io.github.rwaldman/agentbits -->
+
 Website: https://agentbits.dev  
 MCP: https://agentbits.dev/mcp  
 Catalog: https://agentbits.dev/catalog.json  
-OpenAPI: https://agentbits.dev/openapi.json
+OpenAPI: https://agentbits.dev/openapi.json  
+Official MCP Registry manifest: [`server.json`](./server.json)
 
 ## Canonical links
 
@@ -16,8 +19,11 @@ OpenAPI: https://agentbits.dev/openapi.json
 | MCP | https://agentbits.dev/mcp |
 | Catalog | https://agentbits.dev/catalog.json |
 | OpenAPI | https://agentbits.dev/openapi.json |
+| Official `server.json` | https://agentbits.dev/server.json |
+| Smithery server card | https://agentbits.dev/.well-known/mcp/server-card.json |
 | llms.txt | https://agentbits.dev/llms.txt |
 | Docs | https://agentbits.dev/docs/ |
+| MCP registries | [`docs/mcp-registries.md`](./docs/mcp-registries.md) |
 | Tools | https://agentbits.dev/tools/ |
 | Datasets | https://agentbits.dev/datasets/ |
 
@@ -75,7 +81,13 @@ See [`catalog.json`](./catalog.json) for schemas, `use_when` / `do_not_use_when`
 
 Works with Claude Code, Cursor, OpenCode, Cloudflare Agents, and generic MCP clients.
 
-Details: [`docs/mcp.md`](./docs/mcp.md) · [`for-agents.md`](./for-agents.md)
+Details: [`docs/mcp.md`](./docs/mcp.md) · [`for-agents.md`](./for-agents.md) · [`docs/mcp-registries.md`](./docs/mcp-registries.md)
+
+## MCP registries
+
+Packaging for Smithery, Glama, the official MCP Registry, PulseMCP, MCP.so, and related directories is documented in [`docs/mcp-registries.md`](./docs/mcp-registries.md).
+
+Suggested GitHub topics: `ai-agents`, `mcp`, `mcp-server`, `agent-tools`, `ai-tools`, `x402`, `agentic-ai`, `cloudflare-workers`, `machine-payments`
 
 ## How agents discover Agent Bits
 

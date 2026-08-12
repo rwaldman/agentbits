@@ -5,6 +5,10 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://agentbits.dev/.well-known/mcp/server-card.json</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://agentbits.dev/catalog.json</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -49,6 +53,10 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://agentbits.dev/docs/mcp-registries.md</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://agentbits.dev/docs/mcp.md</loc>
     <changefreq>weekly</changefreq>
   </url>
@@ -74,6 +82,10 @@
   </url>
   <url>
     <loc>https://agentbits.dev/openapi.json</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://agentbits.dev/server.json</loc>
     <changefreq>weekly</changefreq>
   </url>
   <url>
