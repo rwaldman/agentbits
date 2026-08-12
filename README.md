@@ -111,6 +111,18 @@ See [`docs/payments.md`](./docs/payments.md).
 
 Initial MVP capabilities are published in the catalog.
 
+## Glama listing
+
+- Server: https://glama.ai/mcp/servers/rwaldman/agentbits
+- Connector: https://glama.ai/mcp/connectors/dev.agentbits/agent-bits
+- Score tab: https://glama.ai/mcp/servers/rwaldman/agentbits/score
+
+[![rwaldman/agentbits MCP server](https://glama.ai/mcp/servers/rwaldman/agentbits/badges/score.svg)](https://glama.ai/mcp/servers/rwaldman/agentbits)
+
+Score badge may show “Not found” until a Glama release exists (see [`docs/mcp-registries.md`](./docs/mcp-registries.md)).
+
 ## License
 
-Licensing terms for this documentation repository will be stated explicitly by the owner. Until then, do not assume permission to reuse the contents beyond ordinary viewing/discovery use.
+MIT — see [`LICENSE`](./LICENSE).
+
+This repository contains documentation and discovery metadata for the hosted Agent Bits service.
