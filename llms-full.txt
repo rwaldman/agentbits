@@ -1,0 +1,88 @@
+# Agent Bits — Full Agent Documentation
+
+Small, reliable utilities and datasets for AI agents.
+
+## Identity
+
+- Name: Agent Bits
+- Website: https://agentbits.dev
+- MCP: https://agentbits.dev/mcp
+- API: https://agentbits.dev/api
+- GitHub: https://github.com/rwaldman/agentbits
+- Catalog version: 0.1.0
+- Updated: 2026-08-10
+
+## How to use
+
+### MCP
+
+Connect an MCP-compatible client to `https://agentbits.dev/mcp`.
+Tool names and input schemas match the HTTP capability contracts.
+
+### HTTP
+
+JSON-first HTTP API under `https://agentbits.dev/api` and versioned paths under `/v1`.
+See OpenAPI for the published machine-readable surface.
+
+### Payments
+
+Capabilities may be free or paid. Paid access uses payment protocol adapters
+(initially x402 / mock test adapter). Agents should follow machine-readable payment challenges
+returned by the service. See docs/payments.md.
+
+## Errors
+
+Errors are machine-readable JSON objects with stable codes:
+
+```json
+{
+  "error": {
+    "code": "INVALID_INPUT",
+    "message": "Human-readable explanation.",
+    "field": "optional_field_name"
+  }
+}
+```
+
+## Capabilities
+
+### countries
+
+- Type: dataset
+- Description: Versioned curated country metadata dataset used by country_lookup and countries_bulk.
+- When to use: Use when an agent needs ISO country metadata as a dataset rather than invoking a single lookup.
+- Documentation: https://agentbits.dev/datasets/countries.md
+- Version: 1
+- Pricing: paid 0.001 USDC/request via x402
+- HTTP: GET https://agentbits.dev/v1/datasets/countries/v1.json
+- Limitations: Bulk download is paid. Single-country lookup via country_lookup remains free.
+
+### countries_bulk
+
+- Type: tool
+- Description: Retrieve the full versioned countries dataset used by Agent Bits country lookups. Use when an agent needs bulk offline country metadata rather than a single country lookup.
+- When to use: Use this tool when you need the complete countries dataset for a specific version (for caching, offline use, or multi-country analysis) instead of looking up one country code at a time.
+- Documentation: https://agentbits.dev/tools/countries_bulk.md
+- Version: 1
+- Pricing: paid 0.001 USDC/request via x402
+- HTTP: GET https://agentbits.dev/v1/datasets/countries/v1.json
+- MCP: https://agentbits.dev/mcp / countries_bulk
+- Limitations: Paid capability. Unpaid requests receive HTTP 402 / payment challenge. Returns the curated Agent Bits countries dataset, not a live feed.
+
+### country_lookup
+
+- Type: tool
+- Description: Look up metadata for an ISO 3166-1 alpha-2 country code. Use this when an agent needs a country's name, currency, language, calling code, region, or related standardized country metadata.
+- When to use: Use this tool when you need metadata for a country identified by an ISO 3166-1 alpha-2 code (for example CA, US, JP), including common name, official name, region, currency, calling code, or languages.
+- Documentation: https://agentbits.dev/tools/country_lookup.md
+- Version: 1
+- Pricing: free
+- HTTP: GET https://agentbits.dev/v1/countries/{code}
+- MCP: https://agentbits.dev/mcp / country_lookup
+- Limitations: Accepts ISO 3166-1 alpha-2 codes only in v1. Dataset is a curated subset/versioned snapshot, not a live geopolitical feed.
+
+## Limitations
+
+- The public repository contains documentation and discovery metadata only.
+- The hosted implementation is proprietary.
+- Unpublished/internal capabilities are intentionally omitted.

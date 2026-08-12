@@ -1,0 +1,130 @@
+{
+  "name": "Agent Bits",
+  "description": "Small, reliable utilities and datasets for AI agents.",
+  "website": "https://agentbits.dev",
+  "mcp": "https://agentbits.dev/mcp",
+  "api": "https://agentbits.dev/api",
+  "github": "https://github.com/rwaldman/agentbits",
+  "version": "0.1.0",
+  "updated": "2026-08-10",
+  "capabilities": [
+    {
+      "name": "countries",
+      "type": "dataset",
+      "description": "Versioned curated country metadata dataset used by country_lookup and countries_bulk.",
+      "documentation": "https://agentbits.dev/datasets/countries.md",
+      "when_to_use": "Use when an agent needs ISO country metadata as a dataset rather than invoking a single lookup.",
+      "http": {
+        "method": "GET",
+        "endpoint": "https://agentbits.dev/v1/datasets/countries/v1.json"
+      },
+      "pricing": {
+        "type": "paid",
+        "amount": "0.001",
+        "currency": "USDC",
+        "unit": "request",
+        "protocol": "x402",
+        "networks": [
+          "eip155:84532"
+        ]
+      },
+      "version": "1",
+      "status": "available",
+      "limitations": [
+        "Bulk download is paid.",
+        "Single-country lookup via country_lookup remains free."
+      ]
+    },
+    {
+      "name": "countries_bulk",
+      "type": "tool",
+      "description": "Retrieve the full versioned countries dataset used by Agent Bits country lookups. Use when an agent needs bulk offline country metadata rather than a single country lookup.",
+      "documentation": "https://agentbits.dev/tools/countries_bulk.md",
+      "when_to_use": "Use this tool when you need the complete countries dataset for a specific version (for caching, offline use, or multi-country analysis) instead of looking up one country code at a time.",
+      "pricing": {
+        "type": "paid",
+        "amount": "0.001",
+        "currency": "USDC",
+        "unit": "request",
+        "protocol": "x402",
+        "networks": [
+          "eip155:84532"
+        ]
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "limitations": [
+        "Paid capability. Unpaid requests receive HTTP 402 / payment challenge.",
+        "Returns the curated Agent Bits countries dataset, not a live feed."
+      ],
+      "http": {
+        "method": "GET",
+        "endpoint": "https://agentbits.dev/v1/datasets/countries/v1.json"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "countries_bulk"
+      }
+    },
+    {
+      "name": "country_lookup",
+      "type": "tool",
+      "description": "Look up metadata for an ISO 3166-1 alpha-2 country code. Use this when an agent needs a country's name, currency, language, calling code, region, or related standardized country metadata.",
+      "documentation": "https://agentbits.dev/tools/country_lookup.md",
+      "when_to_use": "Use this tool when you need metadata for a country identified by an ISO 3166-1 alpha-2 code (for example CA, US, JP), including common name, official name, region, currency, calling code, or languages.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Canada",
+          "input": {
+            "code": "CA"
+          },
+          "output": {
+            "code": "CA",
+            "code3": "CAN",
+            "numeric": "124",
+            "name": "Canada",
+            "official_name": "Canada",
+            "region": "Americas",
+            "subregion": "Northern America",
+            "currency": "CAD",
+            "calling_code": "+1",
+            "languages": [
+              "en",
+              "fr"
+            ],
+            "dataset_version": "1"
+          }
+        }
+      ],
+      "limitations": [
+        "Accepts ISO 3166-1 alpha-2 codes only in v1.",
+        "Dataset is a curated subset/versioned snapshot, not a live geopolitical feed."
+      ],
+      "http": {
+        "method": "GET",
+        "endpoint": "https://agentbits.dev/v1/countries/{code}"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "country_lookup"
+      }
+    }
+  ]
+}

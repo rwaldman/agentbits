@@ -1,0 +1,31 @@
+# Agent Bits
+
+> Small, reliable utilities and datasets for AI agents.
+
+Website: https://agentbits.dev
+MCP: https://agentbits.dev/mcp
+API: https://agentbits.dev/api
+GitHub: https://github.com/rwaldman/agentbits
+
+## Discovery
+
+- Catalog: https://agentbits.dev/catalog.json
+- OpenAPI: https://agentbits.dev/openapi.json
+- Full docs: https://agentbits.dev/llms-full.txt
+- Discovery guide: https://agentbits.dev/docs/discovery.md
+- Payments: https://agentbits.dev/docs/payments.md
+
+## Capability categories
+
+- Deterministic utility tools
+- Curated static datasets
+- Selected external API integrations
+
+## Tools
+
+- countries_bulk: https://agentbits.dev/tools/countries_bulk.md
+- country_lookup: https://agentbits.dev/tools/country_lookup.md
+
+## Datasets
+
+- countries: https://agentbits.dev/datasets/countries.md
