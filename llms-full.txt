@@ -9,7 +9,7 @@ Small, reliable utilities and datasets for AI agents.
 - MCP: https://agentbits.dev/mcp
 - API: https://agentbits.dev/api
 - GitHub: https://github.com/rwaldman/agentbits
-- Catalog version: 0.1.0
+- Catalog version: 0.2.0
 - Updated: 2026-08-12
 
 ## How to use
@@ -46,6 +46,28 @@ Errors are machine-readable JSON objects with stable codes:
 
 ## Capabilities
 
+### base64_decode
+
+- Type: tool
+- Description: Decode a Base64 string into UTF-8 text, reporting invalid payloads as errors.
+- When to use: Use this tool when you need deterministic Base64 decoding.
+- Documentation: https://agentbits.dev/tools/base64_decode.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/base64/decode
+- MCP: https://agentbits.dev/mcp / base64_decode
+
+### base64_encode
+
+- Type: tool
+- Description: Encode a UTF-8 string into standard Base64.
+- When to use: Use this tool when you need deterministic Base64 encoding of text.
+- Documentation: https://agentbits.dev/tools/base64_encode.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/base64/encode
+- MCP: https://agentbits.dev/mcp / base64_encode
+
 ### countries
 
 - Type: dataset
@@ -80,6 +102,202 @@ Errors are machine-readable JSON objects with stable codes:
 - HTTP: GET https://agentbits.dev/v1/countries/{code}
 - MCP: https://agentbits.dev/mcp / country_lookup
 - Limitations: Accepts ISO 3166-1 alpha-2 codes only in v1. Dataset is a curated subset/versioned snapshot, not a live geopolitical feed.
+
+### currencies
+
+- Type: dataset
+- Description: Curated currencies dataset (v1, 20 records) used by related lookup tools.
+- When to use: Use when an agent needs the currencies reference dataset or related lookup metadata.
+- Documentation: https://agentbits.dev/datasets/currencies.md
+- Version: 1
+- Pricing: free
+- Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
+
+### currency_lookup
+
+- Type: tool
+- Description: Look up currency metadata for an ISO 4217 code, including name, symbol, decimals, and related countries.
+- When to use: Use this tool when you need metadata for a currency code such as USD, EUR, or JPY.
+- Documentation: https://agentbits.dev/tools/currency_lookup.md
+- Version: 1
+- Pricing: free
+- HTTP: GET https://agentbits.dev/v1/currencies/{code}
+- MCP: https://agentbits.dev/mcp / currency_lookup
+
+### http_status_lookup
+
+- Type: tool
+- Description: Resolve a numeric HTTP status code to its standard name and a short description.
+- When to use: Use this tool when you need the meaning of an HTTP status code such as 404 or 429.
+- Documentation: https://agentbits.dev/tools/http_status_lookup.md
+- Version: 1
+- Pricing: free
+- HTTP: GET https://agentbits.dev/v1/http-status/{code}
+- MCP: https://agentbits.dev/mcp / http_status_lookup
+
+### isbn_validate
+
+- Type: tool
+- Description: Validate ISBN-10/ISBN-13 identifiers using checksum rules and return normalized digits.
+- When to use: Use this tool when you need to determine whether an ISBN is checksum-valid.
+- Documentation: https://agentbits.dev/tools/isbn_validate.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/isbn/validate
+- MCP: https://agentbits.dev/mcp / isbn_validate
+
+### json_validate
+
+- Type: tool
+- Description: Parse and validate a JSON string, returning whether it is valid and a normalized form when possible.
+- When to use: Use this tool when you need to verify that text is valid JSON before further processing.
+- Documentation: https://agentbits.dev/tools/json_validate.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/json/validate
+- MCP: https://agentbits.dev/mcp / json_validate
+
+### language_lookup
+
+- Type: tool
+- Description: Look up language name and native name for an ISO 639-1 code.
+- When to use: Use this tool when you need metadata for a language code such as en, fr, or ja.
+- Documentation: https://agentbits.dev/tools/language_lookup.md
+- Version: 1
+- Pricing: free
+- HTTP: GET https://agentbits.dev/v1/languages/{code}
+- MCP: https://agentbits.dev/mcp / language_lookup
+
+### languages
+
+- Type: dataset
+- Description: Curated languages dataset (v1, 20 records) used by related lookup tools.
+- When to use: Use when an agent needs the languages reference dataset or related lookup metadata.
+- Documentation: https://agentbits.dev/datasets/languages.md
+- Version: 1
+- Pricing: free
+- Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
+
+### luhn_validate
+
+- Type: tool
+- Description: Validate identifiers such as payment-card-like numbers using the Luhn algorithm.
+- When to use: Use this tool when you need to verify a number with a Luhn check digit.
+- Documentation: https://agentbits.dev/tools/luhn_validate.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/luhn/validate
+- MCP: https://agentbits.dev/mcp / luhn_validate
+
+### mime_lookup
+
+- Type: tool
+- Description: Resolve a file extension or MIME type to curated MIME metadata.
+- When to use: Use this tool when you need the MIME type for a file extension such as webp, or metadata for a MIME type string.
+- Documentation: https://agentbits.dev/tools/mime_lookup.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/mime/lookup
+- MCP: https://agentbits.dev/mcp / mime_lookup
+
+### mime-types
+
+- Type: dataset
+- Description: Curated mime-types dataset (v1, 20 records) used by related lookup tools.
+- When to use: Use when an agent needs the mime-types reference dataset or related lookup metadata.
+- Documentation: https://agentbits.dev/datasets/mime-types.md
+- Version: 1
+- Pricing: free
+- Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
+
+### timestamp_convert
+
+- Type: tool
+- Description: Convert Unix epoch seconds/milliseconds to ISO-8601, or ISO-8601 to Unix epoch values.
+- When to use: Use this tool when you need deterministic conversion between Unix timestamps and ISO-8601 datetimes.
+- Documentation: https://agentbits.dev/tools/timestamp_convert.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/timestamp/convert
+- MCP: https://agentbits.dev/mcp / timestamp_convert
+
+### timezone_convert
+
+- Type: tool
+- Description: Convert an ISO-8601 datetime from one IANA timezone to another, preserving the instant.
+- When to use: Use this tool when you need to convert a datetime between IANA timezones, including daylight-saving-time-aware conversions.
+- Documentation: https://agentbits.dev/tools/timezone_convert.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/timezone/convert
+- MCP: https://agentbits.dev/mcp / timezone_convert
+- Limitations: Relies on the runtime IANA timezone database via Intl.
+
+### timezones
+
+- Type: dataset
+- Description: Curated timezones dataset (v1, 17 records) used by related lookup tools.
+- When to use: Use when an agent needs the timezones reference dataset or related lookup metadata.
+- Documentation: https://agentbits.dev/datasets/timezones.md
+- Version: 1
+- Pricing: free
+- Limitations: Bundled curated snapshot served by the hosted service. Not a live continuously updating feed.
+
+### tld_lookup
+
+- Type: tool
+- Description: Look up curated metadata for a DNS top-level domain such as com, io, or ai.
+- When to use: Use this tool when you need to understand what a TLD is classified as or commonly used for.
+- Documentation: https://agentbits.dev/tools/tld_lookup.md
+- Version: 1
+- Pricing: free
+- HTTP: GET https://agentbits.dev/v1/tlds/{tld}
+- MCP: https://agentbits.dev/mcp / tld_lookup
+
+### unit_convert
+
+- Type: tool
+- Description: Convert numeric values between supported units for length, mass, and temperature.
+- When to use: Use this tool when you need deterministic unit conversion such as miles to kilometers or Celsius to Fahrenheit.
+- Documentation: https://agentbits.dev/tools/unit_convert.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/unit/convert
+- MCP: https://agentbits.dev/mcp / unit_convert
+- Limitations: Supports a curated set of length, mass, and temperature units in v1.
+
+### url_decode
+
+- Type: tool
+- Description: Decode a percent-encoded URL component into plain text.
+- When to use: Use this tool when you need deterministic URL component decoding.
+- Documentation: https://agentbits.dev/tools/url_decode.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/url/decode
+- MCP: https://agentbits.dev/mcp / url_decode
+
+### url_encode
+
+- Type: tool
+- Description: Apply encodeURIComponent-style percent-encoding to a string.
+- When to use: Use this tool when you need deterministic URL component encoding.
+- Documentation: https://agentbits.dev/tools/url_encode.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/url/encode
+- MCP: https://agentbits.dev/mcp / url_encode
+
+### uuid_validate
+
+- Type: tool
+- Description: Validate whether a string is a UUID and identify UUID version/variant metadata when possible.
+- When to use: Use this tool when you need to check if a value is a valid UUID, including common version 4 identifiers.
+- Documentation: https://agentbits.dev/tools/uuid_validate.md
+- Version: 1
+- Pricing: free
+- HTTP: POST https://agentbits.dev/v1/uuid/validate
+- MCP: https://agentbits.dev/mcp / uuid_validate
 
 ## Limitations
 

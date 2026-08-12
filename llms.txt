@@ -23,9 +23,29 @@ GitHub: https://github.com/rwaldman/agentbits
 
 ## Tools
 
+- base64_decode: https://agentbits.dev/tools/base64_decode.md
+- base64_encode: https://agentbits.dev/tools/base64_encode.md
 - countries_bulk: https://agentbits.dev/tools/countries_bulk.md
 - country_lookup: https://agentbits.dev/tools/country_lookup.md
+- currency_lookup: https://agentbits.dev/tools/currency_lookup.md
+- http_status_lookup: https://agentbits.dev/tools/http_status_lookup.md
+- isbn_validate: https://agentbits.dev/tools/isbn_validate.md
+- json_validate: https://agentbits.dev/tools/json_validate.md
+- language_lookup: https://agentbits.dev/tools/language_lookup.md
+- luhn_validate: https://agentbits.dev/tools/luhn_validate.md
+- mime_lookup: https://agentbits.dev/tools/mime_lookup.md
+- timestamp_convert: https://agentbits.dev/tools/timestamp_convert.md
+- timezone_convert: https://agentbits.dev/tools/timezone_convert.md
+- tld_lookup: https://agentbits.dev/tools/tld_lookup.md
+- unit_convert: https://agentbits.dev/tools/unit_convert.md
+- url_decode: https://agentbits.dev/tools/url_decode.md
+- url_encode: https://agentbits.dev/tools/url_encode.md
+- uuid_validate: https://agentbits.dev/tools/uuid_validate.md
 
 ## Datasets
 
 - countries: https://agentbits.dev/datasets/countries.md
+- currencies: https://agentbits.dev/datasets/currencies.md
+- languages: https://agentbits.dev/datasets/languages.md
+- mime-types: https://agentbits.dev/datasets/mime-types.md
+- timezones: https://agentbits.dev/datasets/timezones.md

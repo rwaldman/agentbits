@@ -29,4 +29,8 @@ Public pages describe contracts and access methods. They do not embed proprietar
 
 ## Published datasets
 
-- [`countries`](../datasets/countries.md) — versioned country metadata (`v1`)
+- [`countries`](../datasets/countries.md) — versioned country metadata (`v1`; paid bulk)
+- [`currencies`](../datasets/currencies.md) — ISO 4217 currency metadata (`v1`)
+- [`mime-types`](../datasets/mime-types.md) — extension/MIME mappings (`v1`)
+- [`languages`](../datasets/languages.md) — ISO 639-1 language metadata (`v1`)
+- [`timezones`](../datasets/timezones.md) — curated IANA timezone ids (`v1`)
