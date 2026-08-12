@@ -6,7 +6,7 @@
   "api": "https://agentbits.dev/api",
   "github": "https://github.com/rwaldman/agentbits",
   "version": "0.1.0",
-  "updated": "2026-08-10",
+  "updated": "2026-08-12",
   "capabilities": [
     {
       "name": "countries",

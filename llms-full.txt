@@ -10,7 +10,7 @@ Small, reliable utilities and datasets for AI agents.
 - API: https://agentbits.dev/api
 - GitHub: https://github.com/rwaldman/agentbits
 - Catalog version: 0.1.0
-- Updated: 2026-08-10
+- Updated: 2026-08-12
 
 ## How to use
 

@@ -9,6 +9,8 @@ Where appropriate, Agent Bits may provide:
 - lookup APIs
 - bulk versioned dataset artifacts
 
+Current published datasets are served by the hosted service directly. Operators do not need to manually upload dataset files to object storage to use lookup or bulk endpoints.
+
 ## Versioning
 
 Prefer explicit versions:
