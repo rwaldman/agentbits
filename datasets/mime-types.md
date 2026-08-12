@@ -1,16 +1,22 @@
-# mime-types
+# Mime Types
 
 Curated mime-types dataset (v1, 20 records) used by related lookup tools.
 
-## When an agent should use it
+Canonical name: `mime-types`
 
-Use when an agent needs the mime-types reference dataset or related lookup metadata.
+## When to use this
+
+- Use when an agent needs the mime-types reference dataset or related lookup metadata.
+
+## Do not use when
+
+- None documented.
 
 ## Access
 
 - HTTP access details will be published with the dataset.
 
-- Lookup helper tool: `country_lookup` (free)
+- Related lookup tools may be free even when bulk access is paid.
 
 ## Pricing
 
