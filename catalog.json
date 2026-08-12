@@ -101,7 +101,7 @@
         "unit": "request",
         "protocol": "x402",
         "networks": [
-          "eip155:84532"
+          "eip155:8453"
         ]
       },
       "version": "1",
@@ -124,7 +124,7 @@
         "unit": "request",
         "protocol": "x402",
         "networks": [
-          "eip155:84532"
+          "eip155:8453"
         ]
       },
       "version": "1",

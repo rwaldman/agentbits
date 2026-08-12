@@ -18,9 +18,9 @@ Agents should:
 
 ## Initial direction
 
-The initial paid-access adapter is expected to use x402 on supported networks.
+Paid access uses x402 on Base (`eip155:8453`) in production.
 
-Development and testing use test networks. Production payment details will be published intentionally when paid capabilities launch.
+Unpaid requests receive HTTP `402` with a machine-readable payment challenge. Clients satisfy the challenge and retry with a payment signature header.
 
 ## Important notes
 
@@ -30,14 +30,12 @@ Development and testing use test networks. Production payment details will be pu
 
 ## Current paid capabilities
 
-- `countries_bulk` / `GET /v1/datasets/countries/v1.json`
-
-Unpaid requests receive HTTP `402` with a machine-readable payment challenge.
+- `countries_bulk` / `GET /v1/datasets/countries/v1.json` — `0.001 USDC` per request on Base mainnet
 
 ### Payment succeeds, execution fails
 
-If payment verification succeeds but capability execution fails, Agent Bits returns the execution error and includes payment receipt metadata when available. It does not silently invent refunds or credits.
+If payment verification succeeds but capability execution fails, Agent Bits returns the execution error and includes payment receipt metadata when available. It does not automatically refund or credit. Settlement signatures are not replayable.
 
 ## Status
 
-Paid access uses protocol adapters. Unpaid requests receive a machine-readable payment challenge. When payment is configured for production, Agent Bits verifies and settles through an x402 facilitator and returns receipt metadata on success. Development/testing may use a mock adapter on test networks. Production recipient/facilitator configuration is operator-managed.
+Paid access uses the x402 protocol adapter in production. Development/testing may use a mock adapter on test networks.
