@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Agent Bits",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Small, reliable utilities and datasets for AI agents.",
     "contact": {
       "url": "https://agentbits.dev"
@@ -47,6 +47,34 @@
         }
       }
     },
+    "/v1/base64/decode": {
+      "post": {
+        "operationId": "base64_decode",
+        "summary": "Decode a Base64 string into UTF-8 text, reporting invalid payloads as errors.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/base64/encode": {
+      "post": {
+        "operationId": "base64_encode",
+        "summary": "Encode a UTF-8 string into standard Base64.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
     "/v1/datasets/countries/v1.json": {
       "get": {
         "operationId": "countries_bulk",
@@ -68,6 +96,202 @@
       "get": {
         "operationId": "country_lookup",
         "summary": "Look up metadata for an ISO 3166-1 alpha-2 country code. Use this when an agent needs a country's name, currency, language, calling code, region, or related standardized country metadata.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/currencies/{code}": {
+      "get": {
+        "operationId": "currency_lookup",
+        "summary": "Look up currency metadata for an ISO 4217 code, including name, symbol, decimals, and related countries.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/http-status/{code}": {
+      "get": {
+        "operationId": "http_status_lookup",
+        "summary": "Resolve a numeric HTTP status code to its standard name and a short description.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/isbn/validate": {
+      "post": {
+        "operationId": "isbn_validate",
+        "summary": "Validate ISBN-10/ISBN-13 identifiers using checksum rules and return normalized digits.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/json/validate": {
+      "post": {
+        "operationId": "json_validate",
+        "summary": "Parse and validate a JSON string, returning whether it is valid and a normalized form when possible.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/languages/{code}": {
+      "get": {
+        "operationId": "language_lookup",
+        "summary": "Look up language name and native name for an ISO 639-1 code.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/luhn/validate": {
+      "post": {
+        "operationId": "luhn_validate",
+        "summary": "Validate identifiers such as payment-card-like numbers using the Luhn algorithm.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/mime/lookup": {
+      "post": {
+        "operationId": "mime_lookup",
+        "summary": "Resolve a file extension or MIME type to curated MIME metadata.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/timestamp/convert": {
+      "post": {
+        "operationId": "timestamp_convert",
+        "summary": "Convert Unix epoch seconds/milliseconds to ISO-8601, or ISO-8601 to Unix epoch values.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/timezone/convert": {
+      "post": {
+        "operationId": "timezone_convert",
+        "summary": "Convert an ISO-8601 datetime from one IANA timezone to another, preserving the instant.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/tlds/{tld}": {
+      "get": {
+        "operationId": "tld_lookup",
+        "summary": "Look up curated metadata for a DNS top-level domain such as com, io, or ai.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/unit/convert": {
+      "post": {
+        "operationId": "unit_convert",
+        "summary": "Convert numeric values between supported units for length, mass, and temperature.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/url/decode": {
+      "post": {
+        "operationId": "url_decode",
+        "summary": "Decode a percent-encoded URL component into plain text.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/url/encode": {
+      "post": {
+        "operationId": "url_encode",
+        "summary": "Apply encodeURIComponent-style percent-encoding to a string.",
+        "tags": [
+          "tool"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful capability response"
+          }
+        }
+      }
+    },
+    "/v1/uuid/validate": {
+      "post": {
+        "operationId": "uuid_validate",
+        "summary": "Validate whether a string is a UUID and identify UUID version/variant metadata when possible.",
         "tags": [
           "tool"
         ],

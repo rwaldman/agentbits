@@ -75,10 +75,12 @@ See [`docs/payments.md`](./docs/payments.md).
 
 ## Status
 
-Initial capabilities are published in the catalog:
+Initial MVP capabilities are published in the catalog, including:
 
-- Free: `country_lookup`
-- Paid bulk dataset: `countries` / `countries_bulk`
+- Deterministic utilities (UUID/ISBN/Luhn/Base64/URL/JSON/timestamp/timezone/unit)
+- Lookups (country/currency/MIME/language/HTTP status/TLD)
+- Datasets (`countries`, `currencies`, `mime-types`, `languages`, `timezones`)
+- Paid bulk: `countries_bulk`
 
 ## License
 

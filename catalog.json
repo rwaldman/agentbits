@@ -5,9 +5,85 @@
   "mcp": "https://agentbits.dev/mcp",
   "api": "https://agentbits.dev/api",
   "github": "https://github.com/rwaldman/agentbits",
-  "version": "0.1.0",
-  "updated": "2026-08-10",
+  "version": "0.2.0",
+  "updated": "2026-08-12",
   "capabilities": [
+    {
+      "name": "base64_decode",
+      "type": "tool",
+      "description": "Decode a Base64 string into UTF-8 text, reporting invalid payloads as errors.",
+      "documentation": "https://agentbits.dev/tools/base64_decode.md",
+      "when_to_use": "Use this tool when you need deterministic Base64 decoding.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "aGVsbG8="
+          },
+          "output": {
+            "decoded": "hello"
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/base64/decode"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "base64_decode"
+      }
+    },
+    {
+      "name": "base64_encode",
+      "type": "tool",
+      "description": "Encode a UTF-8 string into standard Base64.",
+      "documentation": "https://agentbits.dev/tools/base64_encode.md",
+      "when_to_use": "Use this tool when you need deterministic Base64 encoding of text.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "hello"
+          },
+          "output": {
+            "encoded": "aGVsbG8="
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/base64/encode"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "base64_encode"
+      }
+    },
     {
       "name": "countries",
       "type": "dataset",
@@ -124,6 +200,643 @@
       "mcp": {
         "server": "https://agentbits.dev/mcp",
         "tool": "country_lookup"
+      }
+    },
+    {
+      "name": "currencies",
+      "type": "dataset",
+      "description": "Curated currencies dataset (v1, 20 records) used by related lookup tools.",
+      "documentation": "https://agentbits.dev/datasets/currencies.md",
+      "when_to_use": "Use when an agent needs the currencies reference dataset or related lookup metadata.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "limitations": [
+        "Bundled curated snapshot served by the hosted service.",
+        "Not a live continuously updating feed."
+      ]
+    },
+    {
+      "name": "currency_lookup",
+      "type": "tool",
+      "description": "Look up currency metadata for an ISO 4217 code, including name, symbol, decimals, and related countries.",
+      "documentation": "https://agentbits.dev/tools/currency_lookup.md",
+      "when_to_use": "Use this tool when you need metadata for a currency code such as USD, EUR, or JPY.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "code": "JPY"
+          },
+          "output": {
+            "code": "JPY",
+            "name": "Yen",
+            "symbol": "¥",
+            "decimals": 0,
+            "countries": [
+              "JP"
+            ],
+            "dataset_version": "1"
+          }
+        }
+      ],
+      "http": {
+        "method": "GET",
+        "endpoint": "https://agentbits.dev/v1/currencies/{code}"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "currency_lookup"
+      }
+    },
+    {
+      "name": "http_status_lookup",
+      "type": "tool",
+      "description": "Resolve a numeric HTTP status code to its standard name and a short description.",
+      "documentation": "https://agentbits.dev/tools/http_status_lookup.md",
+      "when_to_use": "Use this tool when you need the meaning of an HTTP status code such as 404 or 429.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "code": 404
+          },
+          "output": {
+            "code": 404,
+            "name": "Not Found",
+            "description": "Resource does not exist."
+          }
+        }
+      ],
+      "http": {
+        "method": "GET",
+        "endpoint": "https://agentbits.dev/v1/http-status/{code}"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "http_status_lookup"
+      }
+    },
+    {
+      "name": "isbn_validate",
+      "type": "tool",
+      "description": "Validate ISBN-10/ISBN-13 identifiers using checksum rules and return normalized digits.",
+      "documentation": "https://agentbits.dev/tools/isbn_validate.md",
+      "when_to_use": "Use this tool when you need to determine whether an ISBN is checksum-valid.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "9780306406157"
+          },
+          "output": {
+            "valid": true,
+            "type": "isbn13",
+            "normalized": "9780306406157"
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/isbn/validate"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "isbn_validate"
+      }
+    },
+    {
+      "name": "json_validate",
+      "type": "tool",
+      "description": "Parse and validate a JSON string, returning whether it is valid and a normalized form when possible.",
+      "documentation": "https://agentbits.dev/tools/json_validate.md",
+      "when_to_use": "Use this tool when you need to verify that text is valid JSON before further processing.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "{\"a\":1}"
+          },
+          "output": {
+            "valid": true,
+            "normalized": "{\n  \"a\": 1\n}",
+            "error": null
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/json/validate"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "json_validate"
+      }
+    },
+    {
+      "name": "language_lookup",
+      "type": "tool",
+      "description": "Look up language name and native name for an ISO 639-1 code.",
+      "documentation": "https://agentbits.dev/tools/language_lookup.md",
+      "when_to_use": "Use this tool when you need metadata for a language code such as en, fr, or ja.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "code": "ja"
+          },
+          "output": {
+            "code": "ja",
+            "name": "Japanese",
+            "native_name": "日本語",
+            "dataset_version": "1"
+          }
+        }
+      ],
+      "http": {
+        "method": "GET",
+        "endpoint": "https://agentbits.dev/v1/languages/{code}"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "language_lookup"
+      }
+    },
+    {
+      "name": "languages",
+      "type": "dataset",
+      "description": "Curated languages dataset (v1, 20 records) used by related lookup tools.",
+      "documentation": "https://agentbits.dev/datasets/languages.md",
+      "when_to_use": "Use when an agent needs the languages reference dataset or related lookup metadata.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "limitations": [
+        "Bundled curated snapshot served by the hosted service.",
+        "Not a live continuously updating feed."
+      ]
+    },
+    {
+      "name": "luhn_validate",
+      "type": "tool",
+      "description": "Validate identifiers such as payment-card-like numbers using the Luhn algorithm.",
+      "documentation": "https://agentbits.dev/tools/luhn_validate.md",
+      "when_to_use": "Use this tool when you need to verify a number with a Luhn check digit.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "79927398713"
+          },
+          "output": {
+            "valid": true,
+            "normalized": "79927398713"
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/luhn/validate"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "luhn_validate"
+      }
+    },
+    {
+      "name": "mime_lookup",
+      "type": "tool",
+      "description": "Resolve a file extension or MIME type to curated MIME metadata.",
+      "documentation": "https://agentbits.dev/tools/mime_lookup.md",
+      "when_to_use": "Use this tool when you need the MIME type for a file extension such as webp, or metadata for a MIME type string.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "query": "webp"
+          },
+          "output": {
+            "extension": "webp",
+            "mime": "image/webp",
+            "compressible": false,
+            "dataset_version": "1"
+          }
+        }
+      ],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/mime/lookup"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "mime_lookup"
+      }
+    },
+    {
+      "name": "mime-types",
+      "type": "dataset",
+      "description": "Curated mime-types dataset (v1, 20 records) used by related lookup tools.",
+      "documentation": "https://agentbits.dev/datasets/mime-types.md",
+      "when_to_use": "Use when an agent needs the mime-types reference dataset or related lookup metadata.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "limitations": [
+        "Bundled curated snapshot served by the hosted service.",
+        "Not a live continuously updating feed."
+      ]
+    },
+    {
+      "name": "timestamp_convert",
+      "type": "tool",
+      "description": "Convert Unix epoch seconds/milliseconds to ISO-8601, or ISO-8601 to Unix epoch values.",
+      "documentation": "https://agentbits.dev/tools/timestamp_convert.md",
+      "when_to_use": "Use this tool when you need deterministic conversion between Unix timestamps and ISO-8601 datetimes.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "1710000000",
+            "input_format": "unix_seconds"
+          },
+          "output": {
+            "iso": "2024-03-09T16:00:00.000Z",
+            "unix_seconds": 1710000000,
+            "unix_milliseconds": 1710000000000
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/timestamp/convert"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "timestamp_convert"
+      }
+    },
+    {
+      "name": "timezone_convert",
+      "type": "tool",
+      "description": "Convert an ISO-8601 datetime from one IANA timezone to another, preserving the instant.",
+      "documentation": "https://agentbits.dev/tools/timezone_convert.md",
+      "when_to_use": "Use this tool when you need to convert a datetime between IANA timezones, including daylight-saving-time-aware conversions.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "datetime": "2024-07-01T15:00:00",
+            "from_timezone": "America/Toronto",
+            "to_timezone": "Asia/Tokyo"
+          },
+          "output": {
+            "source": {
+              "datetime": "2024-07-01T15:00:00",
+              "timezone": "America/Toronto"
+            },
+            "target": {
+              "datetime": "2024-07-02T04:00:00",
+              "timezone": "Asia/Tokyo"
+            },
+            "utc": "2024-07-01T19:00:00.000Z"
+          }
+        }
+      ],
+      "limitations": [
+        "Relies on the runtime IANA timezone database via Intl."
+      ],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/timezone/convert"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "timezone_convert"
+      }
+    },
+    {
+      "name": "timezones",
+      "type": "dataset",
+      "description": "Curated timezones dataset (v1, 17 records) used by related lookup tools.",
+      "documentation": "https://agentbits.dev/datasets/timezones.md",
+      "when_to_use": "Use when an agent needs the timezones reference dataset or related lookup metadata.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "limitations": [
+        "Bundled curated snapshot served by the hosted service.",
+        "Not a live continuously updating feed."
+      ]
+    },
+    {
+      "name": "tld_lookup",
+      "type": "tool",
+      "description": "Look up curated metadata for a DNS top-level domain such as com, io, or ai.",
+      "documentation": "https://agentbits.dev/tools/tld_lookup.md",
+      "when_to_use": "Use this tool when you need to understand what a TLD is classified as or commonly used for.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "tld": "ai"
+          },
+          "output": {
+            "tld": "ai",
+            "type": "country-code",
+            "description": "Anguilla; popular with AI products"
+          }
+        }
+      ],
+      "http": {
+        "method": "GET",
+        "endpoint": "https://agentbits.dev/v1/tlds/{tld}"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "tld_lookup"
+      }
+    },
+    {
+      "name": "unit_convert",
+      "type": "tool",
+      "description": "Convert numeric values between supported units for length, mass, and temperature.",
+      "documentation": "https://agentbits.dev/tools/unit_convert.md",
+      "when_to_use": "Use this tool when you need deterministic unit conversion such as miles to kilometers or Celsius to Fahrenheit.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": 10,
+            "from_unit": "mi",
+            "to_unit": "km"
+          },
+          "output": {
+            "value": 16.0934,
+            "from_unit": "mi",
+            "to_unit": "km"
+          }
+        }
+      ],
+      "limitations": [
+        "Supports a curated set of length, mass, and temperature units in v1."
+      ],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/unit/convert"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "unit_convert"
+      }
+    },
+    {
+      "name": "url_decode",
+      "type": "tool",
+      "description": "Decode a percent-encoded URL component into plain text.",
+      "documentation": "https://agentbits.dev/tools/url_decode.md",
+      "when_to_use": "Use this tool when you need deterministic URL component decoding.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "a%20b%26c"
+          },
+          "output": {
+            "decoded": "a b&c"
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/url/decode"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "url_decode"
+      }
+    },
+    {
+      "name": "url_encode",
+      "type": "tool",
+      "description": "Apply encodeURIComponent-style percent-encoding to a string.",
+      "documentation": "https://agentbits.dev/tools/url_encode.md",
+      "when_to_use": "Use this tool when you need deterministic URL component encoding.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "a b&c"
+          },
+          "output": {
+            "encoded": "a%20b%26c"
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/url/encode"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "url_encode"
+      }
+    },
+    {
+      "name": "uuid_validate",
+      "type": "tool",
+      "description": "Validate whether a string is a UUID and identify UUID version/variant metadata when possible.",
+      "documentation": "https://agentbits.dev/tools/uuid_validate.md",
+      "when_to_use": "Use this tool when you need to check if a value is a valid UUID, including common version 4 identifiers.",
+      "pricing": {
+        "type": "free"
+      },
+      "version": "1",
+      "status": "available",
+      "input_schema": {
+        "description": "See tool documentation."
+      },
+      "output_schema": {
+        "description": "See tool documentation."
+      },
+      "examples": [
+        {
+          "title": "Example",
+          "input": {
+            "value": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "output": {
+            "valid": true,
+            "version": 4,
+            "variant": "rfc4122",
+            "normalized": "550e8400-e29b-41d4-a716-446655440000"
+          }
+        }
+      ],
+      "limitations": [],
+      "http": {
+        "method": "POST",
+        "endpoint": "https://agentbits.dev/v1/uuid/validate"
+      },
+      "mcp": {
+        "server": "https://agentbits.dev/mcp",
+        "tool": "uuid_validate"
       }
     }
   ]
