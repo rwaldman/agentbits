@@ -12,11 +12,46 @@ Use this tool when you need to understand what a TLD is classified as or commonl
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "tld": {
+      "type": "string",
+      "minLength": 2
+    }
+  },
+  "required": [
+    "tld"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "tld": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tld",
+    "type",
+    "description"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

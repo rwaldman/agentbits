@@ -12,11 +12,82 @@ Use this tool when you need to convert a datetime between IANA timezones, includ
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "datetime": {
+      "type": "string",
+      "description": "ISO-8601 datetime, with or without offset"
+    },
+    "from_timezone": {
+      "type": "string",
+      "description": "IANA timezone for interpreting naive datetimes"
+    },
+    "to_timezone": {
+      "type": "string",
+      "description": "IANA timezone for output"
+    }
+  },
+  "required": [
+    "datetime",
+    "from_timezone",
+    "to_timezone"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "datetime": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "datetime",
+        "timezone"
+      ],
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "datetime": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "datetime",
+        "timezone"
+      ],
+      "additionalProperties": false
+    },
+    "utc": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "source",
+    "target",
+    "utc"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

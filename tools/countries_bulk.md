@@ -12,11 +12,112 @@ Use this tool when you need the complete countries dataset for a specific versio
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "default": "1",
+      "description": "Dataset version to retrieve. Defaults to 1.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "dataset": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "generated": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "code3": {
+            "type": "string"
+          },
+          "numeric": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "official_name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "subregion": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "calling_code": {
+            "type": "string"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "code3",
+          "numeric",
+          "name",
+          "official_name",
+          "region",
+          "subregion",
+          "currency",
+          "calling_code",
+          "languages"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "dataset",
+    "version",
+    "revision",
+    "generated",
+    "count",
+    "records"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

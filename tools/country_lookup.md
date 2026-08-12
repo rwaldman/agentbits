@@ -12,11 +12,84 @@ Use this tool when you need metadata for a country identified by an ISO 3166-1 a
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2,
+      "pattern": "^[A-Za-z]{2}$",
+      "description": "ISO 3166-1 alpha-2 country code, for example CA or JP"
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "code3": {
+      "type": "string"
+    },
+    "numeric": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "official_name": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "subregion": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "calling_code": {
+      "type": "string"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dataset_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "code3",
+    "numeric",
+    "name",
+    "official_name",
+    "region",
+    "subregion",
+    "currency",
+    "calling_code",
+    "languages",
+    "dataset_version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

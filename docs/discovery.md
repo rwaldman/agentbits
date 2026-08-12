@@ -34,4 +34,4 @@ This page explains how agents and developers can discover Agent Bits.
 
 ## Status
 
-Discovery artifacts are published for the current hosted capability catalog. Prefer `catalog.json` plus per-capability pages when selecting tools and datasets.
+Discovery artifacts are published for the current hosted capability catalog. Prefer `catalog.json` (with concrete JSON Schema for tool inputs/outputs) plus per-capability pages when selecting tools and datasets. OpenAPI, MCP, and documentation are generated from the same private capability definitions.

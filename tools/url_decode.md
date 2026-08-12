@@ -12,11 +12,37 @@ Use this tool when you need deterministic URL component decoding.
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "decoded": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "decoded"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

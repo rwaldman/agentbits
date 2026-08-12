@@ -12,11 +12,49 @@ Use this tool when you need the meaning of an HTTP status code such as 404 or 42
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 599
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "description"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 

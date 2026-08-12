@@ -12,11 +12,50 @@ Use this tool when you need the MIME type for a file extension such as webp, or 
 
 ## Input
 
-See the hosted OpenAPI document and MCP tool schema for the canonical input schema.
+```json
+{
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Output
 
-Machine-readable JSON. See OpenAPI / MCP schema for fields.
+```json
+{
+  "type": "object",
+  "properties": {
+    "extension": {
+      "type": "string"
+    },
+    "mime": {
+      "type": "string"
+    },
+    "compressible": {
+      "type": "boolean"
+    },
+    "dataset_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "extension",
+    "mime",
+    "compressible",
+    "dataset_version"
+  ],
+  "additionalProperties": false
+}
+```
 
 ## Errors
 
