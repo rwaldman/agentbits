@@ -132,17 +132,21 @@ Until claimed, admin Dockerfile / Make Release stay locked, and **Author not ver
 
 1. **License** — MIT `LICENSE` on `main` (done). Sync GitHub on Glama so license grade leaves **F**.
 2. **Glama release (critical for quality / score badge)**  
-   A Glama release is **not** a GitHub release. After claim:
+   A Glama release is **not** a GitHub release. Glama requires a **local stdio** MCP process (not `mcp-remote` / URL proxies). After claim:
    - Open https://glama.ai/mcp/servers/rwaldman/agentbits/admin/dockerfile
-   - Configure build to wrap the **hosted** MCP as stdio via `mcp-remote`, for example:
-     - **Build steps:** leave empty (or `[]`)
-     - **CMD arguments:** `["npx", "-y", "mcp-remote", "https://agentbits.dev/mcp"]`
+   - Configure the build to run this repo’s catalog adapter:
+     - **Build steps:** `["npm install --omit=dev"]`
+     - **CMD arguments:** `["node", "mcp-stdio/server.js"]`
      - **Env schema:** empty object
+     - **Placeholder parameters:** `{}`
    - Click **Deploy** (build test must pass `initialize` + `tools/list`)
    - Click **Make Release**, version e.g. `0.3.0`, publish  
+   Adapter details: [`../mcp-stdio/README.md`](../mcp-stdio/README.md)  
    Docs: https://glama.ai/blog/2026-03-15-how-to-make-a-release
 3. **Related servers** — set in Glama admin after claim (optional).
-4. **Usage** — improves after real tool calls through Glama / clients.
+4. **Usage** — improves after real tool calls through the **connector** / hosted MCP (not the stdio adapter stubs).
+
+The stdio adapter exposes catalog schemas for registry introspection. Production tool execution remains at `https://agentbits.dev/mcp` (and the Glama connector).
 
 Score badge URL (for awesome-mcp-servers):
 

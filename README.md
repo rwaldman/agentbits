@@ -42,7 +42,9 @@ It exists for:
 - public project metadata
 - links to the hosted service
 
-It does **not** contain the Agent Bits implementation.
+It does **not** contain the hosted Agent Bits Worker/server implementation.
+
+Narrow exception: [`mcp-stdio/`](./mcp-stdio/) is a **registry catalog adapter** (local stdio MCP for Glama builds). It exposes catalog schemas for `tools/list` and stubs tool calls as hosted-only. Production clients use `https://agentbits.dev/mcp`.
 
 ## Capability table
 

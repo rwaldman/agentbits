@@ -2,6 +2,7 @@
   "name": "agentbits",
   "version": "0.3.0",
   "private": true,
+  "type": "module",
   "description": "Machine-readable utilities and datasets for AI agents. MCP + HTTP + x402.",
   "homepage": "https://agentbits.dev",
   "repository": {
@@ -20,5 +21,17 @@
     "x402",
     "cloudflare-workers"
   ],
-  "mcpName": "io.github.rwaldman/agentbits"
+  "mcpName": "io.github.rwaldman/agentbits",
+  "bin": {
+    "agentbits-mcp-stdio": "./mcp-stdio/server.js"
+  },
+  "scripts": {
+    "mcp:stdio": "node mcp-stdio/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  }
 }

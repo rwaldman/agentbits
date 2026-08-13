@@ -24,6 +24,9 @@ Categories:
 | `tools/*.md` | GENERATED | Per-tool public pages |
 | `datasets/*.md` | GENERATED | Per-dataset public pages |
 | `examples/` | MANUAL | Hosted-service consumption examples only |
+| `mcp-stdio/` | MANUAL | Registry catalog adapter (stdio MCP for Glama introspection) — schemas from `catalog.json`, not hosted implementation |
+| `package.json` | MANUAL | Public package metadata + stdio adapter dependency |
+| `package-lock.json` | GENERATED | Lockfile for reproducible Glama/`npm install` builds |
 | `.well-known/*` | GENERATED/MANUAL | Only established ecosystem standards |
 
 ## ALLOWED content types
@@ -33,11 +36,12 @@ Categories:
 - Plain-text agent discovery documents (`llms.txt`, `llms-full.txt`)
 - Example request/response snippets that call the hosted service
 - Public pricing/discovery metadata intentionally published
+- **Registry catalog adapter** under `mcp-stdio/` (stdio MCP that exposes catalog schemas for registry builds; tool calls are hosted-only stubs)
 
 ## FORBIDDEN
 
-- Executable server implementation
-- Tool/dataset/integration implementation source
+- Hosted Agent Bits server / Worker implementation
+- Tool/dataset/integration implementation source (beyond the narrow `mcp-stdio/` registry adapter)
 - `wrangler.toml` / `wrangler.jsonc`
 - Docker deployment definitions for Agent Bits itself
 - Secrets, `.env`, private keys, API tokens
@@ -46,7 +50,7 @@ Categories:
 - Internal analytics
 - Deployment scripts that reveal private operations
 - Imports/paths from private implementation
-- Source files with extensions such as `.ts`, `.js`, `.py`, `.rs`, `.go`, `.java` unless explicitly approved as non-executable documentation/examples
+- Source files with extensions such as `.ts`, `.js`, `.py`, `.rs`, `.go`, `.java` unless under `mcp-stdio/` or explicitly approved as non-executable documentation/examples
 
 ## Validation
 

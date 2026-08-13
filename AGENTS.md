@@ -15,11 +15,12 @@ Agent Bits provides machine-readable utilities and datasets for AI agents.
 
 ## How to use this repository
 
-This GitHub repository contains **public documentation and discovery metadata only**.
+This GitHub repository contains **public documentation, discovery metadata, and a stdio catalog adapter for MCP registries**.
 
-It does not contain the Agent Bits server implementation.
+It does not contain the hosted Agent Bits Worker/server implementation.
 
-Use the hosted service at `https://agentbits.dev`.
+- **Agents / production clients:** use the hosted service at `https://agentbits.dev` (MCP: `https://agentbits.dev/mcp`).
+- **Registries (Glama, etc.):** may build [`mcp-stdio/`](./mcp-stdio/) for local `initialize` / `tools/list` introspection. Tool execution remains hosted-only.
 
 ## Discovery order
 
