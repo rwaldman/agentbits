@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: avrea-ubuntu-latest-2-vcpu
     steps:
       - uses: actions/checkout@v5
       - name: Install mcp-publisher
